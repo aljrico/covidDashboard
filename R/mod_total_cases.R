@@ -1,6 +1,6 @@
 #' total_cases UI Function
 #'
-#' @description A shiny Module.
+#' @description This module intends to display a col bar with the total numbers, per country, of deaths, infected or recovered cases.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
@@ -68,9 +68,3 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
       })
   })
 }
-
-## To be copied in the UI
-# mod_total_cases_ui("total_cases_ui_1")
-
-## To be copied in the server
-# callModule(mod_total_cases_server, "total_cases_ui_1")

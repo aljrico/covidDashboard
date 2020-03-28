@@ -22,5 +22,6 @@ app_server <- function(input, output, session) {
     callModule(mod_total_cases_server, "total_cases_country", rv$total_country, 'confirmed_cases')
     callModule(mod_total_cases_server, "total_deaths_country", rv$total_country, 'confirmed_deaths')
     callModule(mod_total_cases_server, "total_recovered_country", rv$total_country, 'confirmed_recovered')
+    callModule(mod_cloropleth_server, 'cloropleth_infected', rv$total_country)
   })
 }

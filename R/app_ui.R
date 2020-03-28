@@ -12,19 +12,28 @@ app_ui <- function(request) {
     fluidPage(
       h1("covidDashboard"),
       fluidRow(
+        column(4),
+        bs4Dash::bs4Box(
+          width = 4,
+          height = 450,
+          mod_cloropleth_ui('cloropleth_infected')
+        ),
+        column(4)
+      ),
+      fluidRow(
         bs4Dash::bs4Box(
           mod_total_cases_ui("total_cases_country"),
-          height = 500,
+          height = 400,
           width = 4
         ),
         bs4Dash::bs4Box(
           mod_total_cases_ui("total_deaths_country"),
-          height = 500,
+          height = 400,
           width = 4
         ),
         bs4Dash::bs4Box(
           mod_total_cases_ui("total_recovered_country"),
-          height = 500,
+          height = 400,
           width = 4
         )
       )

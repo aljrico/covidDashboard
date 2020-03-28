@@ -21,13 +21,12 @@ usethis::use_package( "bs4Dash" )
 usethis::use_package( "maps" )
 usethis::use_package( "plotly" )
 usethis::use_package( "waiter" )
-usethis::use_package( "emojifont" )
+usethis::use_package( "harrypotter" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module( name = "total_cases" ) # Name of the module
-golem::add_module( name = "total_deaths" )
-golem::add_module( name = "total_recovered" )
+golem::add_module( name = "cloropleth" ) 
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*

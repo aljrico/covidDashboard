@@ -32,6 +32,20 @@ load_recovered <- function(){
     dplyr::rename(confirmed_recovered = Value)
 }
 
+#' Load Historical Recovered
+#' 
+#' @noRd
+#' @export
+country_codes <- function(){
+  country_codes_url <- ('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv')
+  country_codes_dt <- 
+    country_codes_url %>% 
+    data.table::fread() %>% 
+    dplyr::rename(`Country/Region` = COUNTRY, country_code = CODE) %>% 
+    dplyr::select(`Country/Region`, country_code)
+}
+
+
 
 #' Get Total by Country
 #' 
@@ -39,7 +53,8 @@ load_recovered <- function(){
 #' @export
 get_total_country <- function(confirmed_ts, death_ts, recovered_ts){
   
-  data('flags_unicode')
+  
+  data('country_codes_dt')
   
   total_country <- 
     confirmed_ts %>% 
@@ -52,19 +67,21 @@ get_total_country <- function(confirmed_ts, death_ts, recovered_ts){
                      confirmed_deaths = sum(as.numeric(confirmed_deaths))) %>% 
     dplyr::arrange(desc(confirmed_cases)) %>% 
     dplyr::ungroup() %>% 
-    dplyr::mutate(unicode_name = tolower(`Country/Region`) %>% stringr::str_replace(' ', '_')) %>% 
-    dplyr::mutate(unicode_name = ifelse(unicode_name == 'korea,_south', 'kr', unicode_name)) %>% 
-    dplyr::mutate(unicode_name = ifelse(unicode_name == 'france', 'fr', unicode_name)) %>% 
-    dplyr::mutate(unicode_name = ifelse(unicode_name == 'spain', 'es', unicode_name)) %>% 
-    dplyr::mutate(unicode_name = ifelse(unicode_name == 'france', 'fr', unicode_name)) %>% 
-    dplyr::mutate(unicode_name = ifelse(unicode_name == 'germany', 'de', unicode_name)) %>% 
-    dplyr::mutate(unicode_name = ifelse(unicode_name == 'united_kingdom', 'uk', unicode_name)) %>% 
-    dplyr::mutate(unicode_name = ifelse(unicode_name == 'italy', 'it', unicode_name)) %>% 
-    dplyr::mutate(unicode_name = ifelse(unicode_name == 'china', 'cn', unicode_name)) %>% 
-    dplyr::mutate(unicode_name = ifelse(unicode_name == 'russia', 'ru', unicode_name)) %>% 
-    dplyr::mutate(unicode_name = ifelse(unicode_name == 'serbia', 'rs', unicode_name)) %>% 
-    dplyr::mutate(unicode_name = ifelse(unicode_name == 'united_arab_emirates', 'ae', unicode_name)) %>% 
-    dplyr::mutate(unicode = emojifont::emoji(unicode_name))
+    dplyr::mutate(`Country/Region` = ifelse(`Country/Region` == 'US', 'United States', `Country/Region`)) %>% 
+    # dplyr::mutate(unicode_name = tolower(`Country/Region`) %>% stringr::str_replace(' ', '_')) %>% 
+    # dplyr::mutate(unicode_name = ifelse(unicode_name == 'korea,_south', 'kr', unicode_name)) %>% 
+    # dplyr::mutate(unicode_name = ifelse(unicode_name == 'france', 'fr', unicode_name)) %>% 
+    # dplyr::mutate(unicode_name = ifelse(unicode_name == 'spain', 'es', unicode_name)) %>% 
+    # dplyr::mutate(unicode_name = ifelse(unicode_name == 'france', 'fr', unicode_name)) %>% 
+    # dplyr::mutate(unicode_name = ifelse(unicode_name == 'germany', 'de', unicode_name)) %>% 
+    # dplyr::mutate(unicode_name = ifelse(unicode_name == 'united_kingdom', 'uk', unicode_name)) %>% 
+    # dplyr::mutate(unicode_name = ifelse(unicode_name == 'italy', 'it', unicode_name)) %>% 
+    # dplyr::mutate(unicode_name = ifelse(unicode_name == 'china', 'cn', unicode_name)) %>% 
+    # dplyr::mutate(unicode_name = ifelse(unicode_name == 'russia', 'ru', unicode_name)) %>% 
+    # dplyr::mutate(unicode_name = ifelse(unicode_name == 'serbia', 'rs', unicode_name)) %>% 
+    # dplyr::mutate(unicode_name = ifelse(unicode_name == 'united_arab_emirates', 'ae', unicode_name)) %>% 
+    # dplyr::mutate(unicode = emojifont::emoji(unicode_name)) %>% 
+    dplyr::left_join(country_codes_dt)
 }
 
   
