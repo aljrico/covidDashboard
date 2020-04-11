@@ -8,33 +8,38 @@ app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
-    # List the first level UI elements here
     fluidPage(
-      h1("covidDashboard"),
       fluidRow(
-        column(4),
-        bs4Dash::bs4Box(
-          width = 4,
-          height = 450,
-          mod_cloropleth_ui('cloropleth_infected')
-        ),
-        column(4)
+        h1('Covid-19 Dashboard', id = 'big-heading')
       ),
       fluidRow(
-        bs4Dash::bs4Box(
-          mod_total_cases_ui("total_cases_country"),
-          height = 400,
-          width = 4
+        column(5),
+        shinydashboard::box(
+          solidHeader = TRUE, aligh = 'center', width = 2,
+          actionButton("select_infected", "Infected"),
+          actionButton("select_deaths", "Deaths"), 
+          actionButton("select_recovered", "Recovered")
+        )
+      ),
+      fluidRow(
+        column(2),
+        shinydashboard::box(width = 8, height = 500, solidHeader = TRUE,
+          mod_cloropleth_ui("cloropleth")
         ),
-        bs4Dash::bs4Box(
-          mod_total_cases_ui("total_deaths_country"),
-          height = 400,
-          width = 4
+        column(2)
+      ),
+      fluidRow(
+        shinydashboard::box(solidHeader = TRUE,
+          width = 4,
+          mod_total_cases_ui("total_cases_country")
         ),
-        bs4Dash::bs4Box(
-          mod_total_cases_ui("total_recovered_country"),
-          height = 400,
-          width = 4
+        shinydashboard::box(solidHeader = TRUE,
+          width = 4,
+          mod_total_cases_ui("total_deaths_country")
+        ),
+        shinydashboard::box(solidHeader = TRUE,
+          width = 4,
+          mod_total_cases_ui("total_recovered_country")
         )
       )
     )
@@ -55,11 +60,16 @@ golem_add_external_resources <- function() {
   )
 
   tags$head(
+    use_googlefont("Ubuntu"),
     favicon(),
+    shinyWidgets::useShinydashboard(),
     waiter::use_waiter(),
     bundle_resources(
       path = app_sys("app/www"),
       app_title = "covidDashboard"
+    ),
+    tags$head(
+      tags$style(HTML(".leaflet-container { background: #FAFAFA; }"))
     )
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()

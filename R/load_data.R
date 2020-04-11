@@ -45,16 +45,11 @@ country_codes <- function(){
     dplyr::select(`Country/Region`, country_code)
 }
 
-
-
 #' Get Total by Country
 #' 
 #' @noRd
 #' @export
 get_total_country <- function(confirmed_ts, death_ts, recovered_ts){
-  
-  
-  data('country_codes_dt')
   
   total_country <- 
     confirmed_ts %>% 
@@ -84,7 +79,17 @@ get_total_country <- function(confirmed_ts, death_ts, recovered_ts){
     dplyr::left_join(country_codes_dt)
 }
 
-  
+#' Total data in a map
+#' 
+#' @noRd
+#' @export
+get_map_data <- function(total_country){
+  data('world_spdf')
+  world_spdf %>% 
+    dplyr::select(NAME, LON, LAT, ISO3) %>% 
+    dplyr::rename(country_code = ISO3) %>% 
+    dplyr::inner_join(total_country)
+}
 
 
 

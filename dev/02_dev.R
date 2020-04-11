@@ -22,6 +22,9 @@ usethis::use_package( "maps" )
 usethis::use_package( "plotly" )
 usethis::use_package( "waiter" )
 usethis::use_package( "harrypotter" )
+usethis::use_package( "gameofthrones" )
+usethis::use_package( "shinydashboard" )
+usethis::use_package( "leaflet" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
@@ -37,7 +40,8 @@ golem::add_utils( "helpers" )
 ## Creates .js and .css files at inst/app/www
 golem::add_js_file( "script" )
 golem::add_js_handler( "handlers" )
-golem::add_css_file( "custom" )
+golem::add_css_file( "big_title" )
+golem::add_css_file( "box" )
 
 ## Add internal datasets ----
 ## If you have data in your package

@@ -9,9 +9,7 @@
 #' @importFrom shiny NS tagList
 mod_total_cases_ui <- function(id) {
   ns <- NS(id)
-  tagList(
     plotly::plotlyOutput(ns("total_cases_country"))
-  )
 }
 
 #' total_cases Server Function
