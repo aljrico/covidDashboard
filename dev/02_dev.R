@@ -30,6 +30,8 @@ usethis::use_package( "leaflet" )
 ## Create a module infrastructure in R/
 golem::add_module( name = "total_cases" ) # Name of the module
 golem::add_module( name = "cloropleth" ) 
+golem::add_module( name = "select_buttons" ) 
+golem::add_module( name = "total_table" ) 
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
@@ -42,6 +44,8 @@ golem::add_js_file( "script" )
 golem::add_js_handler( "handlers" )
 golem::add_css_file( "big_title" )
 golem::add_css_file( "box" )
+golem::add_css_file( "main" )
+golem::add_css_file( "select_buttons" )
 
 ## Add internal datasets ----
 ## If you have data in your package
