@@ -14,15 +14,12 @@ app_ui <- function(request) {
       ),
       fluidRow(
         column(5),
-        shinydashboard::box(
-          solidHeader = TRUE, aligh = 'center', width = 2,
-          actionButton("select_infected", "Infected"),
-          actionButton("select_deaths", "Deaths"), 
-          actionButton("select_recovered", "Recovered")
+        column(aligh = 'center', width = 2,
+               mod_select_buttons_ui('select_buttons')
         )
       ),
       fluidRow(
-        column(2),
+        column(2, mod_total_table_ui('left_table')),
         shinydashboard::box(width = 8, height = 500, solidHeader = TRUE,
           mod_cloropleth_ui("cloropleth")
         ),
