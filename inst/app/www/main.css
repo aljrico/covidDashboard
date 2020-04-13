@@ -1,0 +1,8 @@
+body {
+  color: #1F2430;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.leaflet-container {
+    background-color:rgba(255,0,0,0.0);
+}

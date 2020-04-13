@@ -1,0 +1,17 @@
+#select_infected {
+  color: #FF9940;
+  font-weight: 800;
+  background-color: #fafafa;
+}
+
+#select_deaths {
+  color: #F07171;
+  font-weight: 800;
+  background-color: #fafafa;
+}
+
+#select_recovered {
+  color: #5CCFE6;
+  font-weight: 800;
+  background-color: #fafafa;
+}
