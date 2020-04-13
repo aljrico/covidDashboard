@@ -57,9 +57,9 @@ get_total_country <- function(confirmed_ts, death_ts, recovered_ts){
     dplyr::left_join(recovered_ts) %>% 
     dplyr::group_by(`Country/Region`) %>% 
     dplyr::filter(Date == max(Date)) %>% 
-    dplyr::summarise(confirmed_cases = sum(as.numeric(confirmed_cases)),
-                     confirmed_recovered = sum(as.numeric(confirmed_recovered)),
-                     confirmed_deaths = sum(as.numeric(confirmed_deaths))) %>% 
+    dplyr::summarise(confirmed_cases = sum(as.numeric(confirmed_cases), na.rm = TRUE),
+                     confirmed_recovered = sum(as.numeric(confirmed_recovered), na.rm = TRUE),
+                     confirmed_deaths = sum(as.numeric(confirmed_deaths), na.rm = TRUE)) %>% 
     dplyr::arrange(desc(confirmed_cases)) %>% 
     dplyr::ungroup() %>% 
     dplyr::mutate(`Country/Region` = ifelse(`Country/Region` == 'US', 'United States', `Country/Region`)) %>% 
