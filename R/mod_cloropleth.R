@@ -58,7 +58,11 @@ mod_cloropleth_server <- function(input, output, session, rv) {
       my_palette <- leaflet::colorBin(colours, rv$map_data[[column]], na.color = "#FAFAFA", bins = my_bins)
       
       # Build Cloropleth
-      leaflet::leaflet(rv$map_data) %>%
+      leaflet::leaflet(rv$map_data, options = leaflet::leafletOptions(minZoom = 2)) %>%
+        leaflet::setMaxBounds( lng1 = -110
+                      , lat1 = -80
+                      , lng2 = 110
+                      , lat2 = 90 ) %>% 
         leaflet::addTiles() %>%
         leaflet::setView(lat = 20, lng = 10, zoom = 2.2) %>%
         leaflet::addPolygons(
