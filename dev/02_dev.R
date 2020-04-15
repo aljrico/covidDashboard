@@ -25,6 +25,10 @@ usethis::use_package( "harrypotter" )
 usethis::use_package( "gameofthrones" )
 usethis::use_package( "shinydashboard" )
 usethis::use_package( "leaflet" )
+usethis::use_package( "shinyWidgets" )
+usethis::use_package( "magrittr" )
+usethis::use_package( "fresh" )
+usethis::use_package( "sf" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/

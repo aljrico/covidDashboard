@@ -4,3 +4,15 @@
   font-weight: 900;
   padding-left: 50px;
 }
+
+#left-heading {
+  color: #1f2430;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: 700;
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 22px;
+}
+#left-heading:hover {
+  color:#ff9940;
+}

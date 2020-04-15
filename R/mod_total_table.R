@@ -29,28 +29,40 @@ mod_total_table_server <- function(input, output, session, rv) {
     if (rv$selected_variable == "infected") {
       title <- "Confirmed Cases"
       column <- "confirmed_cases"
+      id <- "confirmed"
     } else if (rv$selected_variable == "deaths") {
       title <- "Deaths"
       column <- "confirmed_deaths"
+      id <- "deaths"
     } else if (rv$selected_variable == "recovered") {
       title <- "Recovered"
       column <- "confirmed_recovered"
+      id <- "recovered"
     }
     
     total_country$variable <- total_country[[column]]
+    column_title <- paste0('Total ', title)
     
     top_variables <- 
       total_country %>%
       dplyr::group_by(`Country/Region`) %>%
       dplyr::summarise(variable = sum(variable, na.rm = TRUE)) %>%
       dplyr::ungroup() %>%
-      dplyr::top_n(n = 10, wt = variable) %>%
-      dplyr::arrange(desc(variable)) 
+      # dplyr::top_n(n = 10, wt = variable) %>%
+      dplyr::arrange(desc(variable)) %>% 
+      as.data.frame()
     
-    tagList(
+    table_row <- function(i, top_variables){
+      fluidRow(
+        column(6, align = "center", tags$b(paste0(top_variables[i,1], ": "))),
+        column(6, align = "left", tags$p(prettyNum(top_variables[i,2], big.interval = 3L, big.mark = ",")))
+      )
+    }
+    
+    fluidRow(
+      p(column_title, id = "left-heading"),
       # shinydashboard::valueBox(value = paste0('United States: ', prettyNum(1e5, big.interval = 3L)), subtitle = "")
-      column(6, align = "center", tags$b("United States: ")),
-      column(6, align = "left", tags$p("1,000,000"))
+      lapply(1:16, table_row, top_variables = top_variables)
     )
   })
 

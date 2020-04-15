@@ -45,6 +45,8 @@ mod_cloropleth_server <- function(input, output, session, rv) {
         colours <- create_gradient(col1 = rv$colours$grey, rv$colours$green)
         my_bins <- c(0, 1e2, 1e3, 1e4, 1e5, Inf)
       }
+      
+      saveRDS(rv$map_data, 'map_data')
 
       # Prepare text for the tooltip
       mytext <- paste0(

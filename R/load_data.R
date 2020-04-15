@@ -85,11 +85,14 @@ get_total_country <- function(confirmed_ts, death_ts, recovered_ts){
 #' @export
 get_map_data <- function(total_country){
   data('world_spdf')
+
   map_data <- 
     world_spdf %>% 
-    dplyr::select(NAME, LON, LAT, ISO3) %>% 
+    dplyr::select(NAME, LON, LAT, ISO3, geometry) %>% 
     dplyr::rename(country_code = ISO3) %>% 
-    dplyr::inner_join(total_country)
+    dplyr::mutate(country_code = as.character(country_code)) %>%
+    dplyr::inner_join(total_country, by = "country_code") %>% 
+    sf::st_as_sf() 
   
   return(map_data)
 }

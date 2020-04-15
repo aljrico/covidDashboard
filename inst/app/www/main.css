@@ -6,3 +6,8 @@ body {
 .leaflet-container {
     background-color:rgba(255,0,0,0.0);
 }
+
+#total_numbers_country1 {
+  font-size: 200%;
+  color: "rgb(255, 0, 0)";
+}
