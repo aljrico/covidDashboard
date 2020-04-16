@@ -19,12 +19,17 @@ app_server <- function(input, output, session) {
   # Load Data
   observe({
     waiter::show_waiter(waiter::spin_folding_cube())
+    
+    # Raw Data
     confirmed_ts <- load_confirmed()
     death_ts <- load_deaths()
     recovered_ts <- load_recovered()
-
+    
+    # Processed Data
+    rv$daily_country <- get_daily_country(confirmed_ts, death_ts, recovered_ts)
     rv$total_country <- get_total_country(confirmed_ts, death_ts, recovered_ts)
     rv$map_data <- get_map_data(rv$total_country)
+    
     waiter::hide_waiter()
   })
 

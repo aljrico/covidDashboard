@@ -36,6 +36,7 @@ golem::add_module( name = "total_cases" ) # Name of the module
 golem::add_module( name = "cloropleth" ) 
 golem::add_module( name = "select_buttons" ) 
 golem::add_module( name = "total_table" ) 
+golem::add_module( name = "daily_table" ) 
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
