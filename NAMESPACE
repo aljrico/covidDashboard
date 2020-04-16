@@ -2,6 +2,7 @@
 
 export("%>%")
 export(country_codes)
+export(get_daily_country)
 export(get_map_data)
 export(get_total_country)
 export(load_confirmed)
