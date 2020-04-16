@@ -59,9 +59,9 @@ mod_cloropleth_server <- function(input, output, session, rv) {
       
       # Build Cloropleth
       leaflet::leaflet(rv$map_data, options = leaflet::leafletOptions(minZoom = 2)) %>%
-        leaflet::setMaxBounds( lng1 = -110
+        leaflet::setMaxBounds( lng1 = -120
                       , lat1 = -80
-                      , lng2 = 110
+                      , lng2 = 120
                       , lat2 = 90 ) %>% 
         leaflet::addTiles() %>%
         leaflet::setView(lat = 20, lng = 10, zoom = 2.2) %>%
