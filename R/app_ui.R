@@ -10,7 +10,7 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     fluidPage(
       fluidRow(
-        h1('Covid-19 Dashboard', id = 'big-heading')
+        mod_header_ui("header")
       ),
       fluidRow(
         column(5),
@@ -23,7 +23,7 @@ app_ui <- function(request) {
         shinydashboard::box(width = 8, height = 500, solidHeader = TRUE,
           mod_cloropleth_ui("cloropleth")
         ),
-        column(2)
+        column(2, mod_daily_table_ui('right_table'))
       ),
       fluidRow(
         shinydashboard::box(solidHeader = TRUE,

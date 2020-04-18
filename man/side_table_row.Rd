@@ -4,7 +4,7 @@
 \alias{side_table_row}
 \title{Side Table Row}
 \usage{
-side_table_row(i, top_variables)
+side_table_row(i, top_variables, plus = FALSE)
 }
 \arguments{
 \item{i}{Row of the data.frame to be shown}

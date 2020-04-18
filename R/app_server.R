@@ -26,9 +26,12 @@ app_server <- function(input, output, session) {
     recovered_ts <- load_recovered()
     
     # Processed Data
-    rv$daily_country <- get_daily_country(confirmed_ts, death_ts, recovered_ts)
-    rv$total_country <- get_total_country(confirmed_ts, death_ts, recovered_ts)
+    rv$daily_country <- get_daily_country(confirmed_ts, death_ts, recovered_ts, country_codes_dt)
+    rv$total_country <- get_total_country(confirmed_ts, death_ts, recovered_ts, country_codes_dt)
     rv$map_data <- get_map_data(rv$total_country)
+    
+    # Last date
+    rv$last_date <- confirmed_ts$Date %>% max()
     
     waiter::hide_waiter()
   })
@@ -54,5 +57,7 @@ app_server <- function(input, output, session) {
     callModule(mod_select_buttons_server, "select_buttons", rv)
     callModule(mod_cloropleth_server, "cloropleth", rv)
     callModule(mod_total_table_server, "left_table", rv)
+    callModule(mod_daily_table_server, "right_table", rv)
+    callModule(mod_header_server, "header", rv)
   })
 }

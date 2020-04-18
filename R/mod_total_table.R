@@ -25,7 +25,6 @@ mod_total_table_server <- function(input, output, session, rv) {
     
     total_country <- rv$total_country
     
-    
     if (rv$selected_variable == "infected") {
       title <- "Confirmed Cases"
       column <- "confirmed_cases"
@@ -55,7 +54,7 @@ mod_total_table_server <- function(input, output, session, rv) {
     fluidRow(
       p(column_title, id = "left-heading"),
       # shinydashboard::valueBox(value = paste0('United States: ', prettyNum(1e5, big.interval = 3L)), subtitle = "")
-      lapply(1:16, side_table_row, top_variables = top_variables)
+      lapply(1:13, side_table_row, top_variables = top_variables)
     )
   })
 

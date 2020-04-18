@@ -43,13 +43,15 @@ country_codes <- function(){
     data.table::fread() %>% 
     dplyr::rename(`Country/Region` = COUNTRY, country_code = CODE) %>% 
     dplyr::select(`Country/Region`, country_code)
+  
+  return(country_codes_dt)
 }
 
 #' Extract daily by country
 #' 
 #' @noRd
 #' @export
-get_daily_country <- function(confirmed_ts, death_ts, recovered_ts){
+get_daily_country <- function(confirmed_ts, death_ts, recovered_ts, country_codes_dt){
   
   daily_country <- 
   confirmed_ts %>% 
@@ -61,7 +63,8 @@ get_daily_country <- function(confirmed_ts, death_ts, recovered_ts){
     dplyr::mutate(cases_change = as.numeric(confirmed_cases) - dplyr::lead(as.numeric(confirmed_cases))) %>% 
     dplyr::filter(Date == max(Date)) %>% 
     dplyr::ungroup() %>% 
-    dplyr::mutate(`Country/Region` = ifelse(`Country/Region` == 'US', 'United States', `Country/Region`))
+    dplyr::mutate(`Country/Region` = ifelse(`Country/Region` == 'US', 'United States', `Country/Region`)) %>% 
+    dplyr::left_join(country_codes_dt)
   
   return(daily_country)
 }
@@ -70,7 +73,7 @@ get_daily_country <- function(confirmed_ts, death_ts, recovered_ts){
 #' 
 #' @noRd
 #' @export
-get_total_country <- function(confirmed_ts, death_ts, recovered_ts){
+get_total_country <- function(confirmed_ts, death_ts, recovered_ts, country_codes_dt){
   
   total_country <- 
     confirmed_ts %>% 

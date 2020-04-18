@@ -3,6 +3,12 @@ body {
   font-family: 'Ubuntu', sans-serif;
 }
 
+dateindicator {
+  padding-top: 40px;
+  font-weight: 600;
+}
+
+
 .leaflet-container {
     background-color:rgba(255,0,0,0.0);
 }
