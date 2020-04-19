@@ -23,10 +23,9 @@ mod_header_server <- function(input, output, session, rv){
   output$header <- 
     renderUI({
       tagList(
-        column(4, h1('Covid-19 Dashboard', id = 'big-heading')), 
+        column(4, h1('Covid-19 Dashboard', class = 'big-heading')), 
         column(6), 
-        column(2, div(class = "dateindicator", paste0("Updated: ", rv$last_date), style = "  padding-top: 40px;
-  font-weight: 600;"))
+        column(2, div(class = "date-indicator", paste0("Updated: ", rv$last_date)))
       )
     })
 }

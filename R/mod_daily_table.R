@@ -51,8 +51,9 @@ mod_daily_table_server <- function(input, output, session, rv){
     as.data.frame()
   
   fluidRow(
-    p(column_title, id = "right-heading"),
-    lapply(1:13, side_table_row, top_variables = top_variables, plus = TRUE)
+    div(class = "side-heading", column_title),
+    hr(size = "50%"),
+    lapply(1:10, side_table_row, top_variables = top_variables, plus = TRUE)
   )
   })
 }

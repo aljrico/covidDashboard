@@ -3,17 +3,49 @@ body {
   font-family: 'Ubuntu', sans-serif;
 }
 
-dateindicator {
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px; 
+}
+
+.map-container {
+  position: relative;
+}
+
+.side-table {
+    width: 20%;
+    height: 70%;
+    position: absolute;
+    top: 20px;
+    border-radius: 10px;
+    background-color: #fafafa;
+}
+
+.side-table-content-row {
+  margin: auto;
+  padding-left: 20px;
+}
+
+.side-table-content-country {
+  padding-left: 30px;
+  float: left;
+}
+
+.side-table-content-number {
+  padding-left: 256px;
+  text-align: center;
+  position: absolute;
+}
+
+.left-table {
+  left: 10px;
+}
+
+.right-table {
+    right: 10px;
+}
+
+.date-indicator {
   padding-top: 40px;
   font-weight: 600;
-}
-
-
-.leaflet-container {
-    background-color:rgba(255,0,0,0.0);
-}
-
-#total_numbers_country1 {
-  font-size: 200%;
-  color: "rgb(255, 0, 0)";
 }

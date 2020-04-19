@@ -51,10 +51,9 @@ mod_total_table_server <- function(input, output, session, rv) {
       dplyr::arrange(desc(variable)) %>% 
       as.data.frame()
     
-    fluidRow(
-      p(column_title, id = "left-heading"),
-      # shinydashboard::valueBox(value = paste0('United States: ', prettyNum(1e5, big.interval = 3L)), subtitle = "")
-      lapply(1:13, side_table_row, top_variables = top_variables)
+    tagList(
+      div(class = "side-heading", column_title),
+      lapply(1:10, side_table_row, top_variables = top_variables)
     )
   })
 

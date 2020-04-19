@@ -9,7 +9,9 @@ side_table_row <- function(i, top_variables, plus = FALSE){
   plus_sign <- ""
   if(plus) plus_sign <- "+"
   fluidRow(
-    column(6, align = "center", tags$b(paste0(top_variables[i,1], ": "))),
-    column(6, align = "left", tags$p(paste0(plus_sign, prettyNum(top_variables[i,2], big.interval = 3L, big.mark = ","))))
+    div(class = "side-table-content-row",
+      div(class = "side-table-content-country", tags$b(paste0(top_variables[i,1], ": "))),
+      div(class = "side-table-content-number", tags$p(paste0(plus_sign, prettyNum(top_variables[i,2], big.interval = 3L, big.mark = ","))))
+    )
   )
 }

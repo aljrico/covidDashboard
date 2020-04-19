@@ -5,6 +5,16 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
+  
+  border_css <- 
+    "
+    border-right: 2px solid #1f2430;
+    border-top: 2px solid #1f2430;
+    border-left: 2px solid #1f2430;
+    border-bottom: 2px solid #1f2430;
+    
+    "
+  
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
@@ -18,12 +28,11 @@ app_ui <- function(request) {
                mod_select_buttons_ui('select_buttons')
         )
       ),
-      fluidRow(
-        column(2, mod_total_table_ui('left_table')),
-        shinydashboard::box(width = 8, height = 500, solidHeader = TRUE,
-          mod_cloropleth_ui("cloropleth")
-        ),
-        column(2, mod_daily_table_ui('right_table'))
+      div(
+        class = "map-container",
+        div(class = "map", mod_cloropleth_ui("cloropleth")),
+        div(class = "side-table left-table", mod_total_table_ui('left_table')),
+        div(class = "side-table right-table", mod_daily_table_ui('right_table'))
       ),
       fluidRow(
         shinydashboard::box(solidHeader = TRUE,
