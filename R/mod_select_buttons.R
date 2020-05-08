@@ -56,6 +56,10 @@ mod_select_buttons_server <- function(input, output, session, rv, global) {
 }
 
 #' Public Class to manage the style of 'Select Buttons'
+#' @title button_style
+#' @docType class
+#' @description Public Class to manage the style of 'Select Buttons'
+#' @export
 #' 
 #' @noRd
 button_class <-
@@ -63,13 +67,15 @@ button_class <-
     classname = "button_style",
     public = list(
       active_colour = reactiveValues(),
-      inactive_colour = global$colours$dark,
+      inactive_colour = character(0),
       status = "inactive",
       style = reactiveValues(),
       initialize = function(type) {
+        data('global')
         if (type == "infected") self$active_colour <- global$colours$orange
         if (type == "deaths") self$active_colour <- global$colours$red
         if (type == "recovered") self$active_colour <- global$colours$green
+        self$inactive_colour = global$colours$dark
         private$create_style()
       },
       activate = function(){

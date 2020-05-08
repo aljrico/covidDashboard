@@ -5,8 +5,8 @@ account: aljrico
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2109927
-bundleId: 3030321
+bundleId: 3121992
 url: https://aljrico.shinyapps.io/covidDashboard/
-when: 1587193674.06463
+when: 1588967165.22065
 asMultiple: FALSE
 asStatic: FALSE
