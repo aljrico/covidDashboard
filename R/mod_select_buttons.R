@@ -85,12 +85,15 @@ button_class <-
       create_style = function() {
         if (self$status == "active") {
           colour <- self$active_colour
+          font_weight = 900
         } else {
           colour <- self$inactive_colour
+          font_weight = 400
         }
         self$style <-
           paste0(
-            "color: ", colour, ";"
+            "color: ", colour, ";",
+            "font-weight: ", font_weight, ";"
           )
       }
     )
