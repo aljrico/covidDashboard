@@ -53,7 +53,14 @@ mod_total_table_server <- function(input, output, session, rv) {
     
     tagList(
       div(class = "side-heading", column_title),
-      lapply(1:10, side_table_row, top_variables = top_variables)
+      fluidRow(
+        div(
+          class = "side-table-content-row",
+          div(class = "side-table-content-country side-subheading", "Country"),
+          div(class = "side-table-content-number side-subheading", "Daily")
+        )
+      ),
+      lapply(1:8, side_table_row, top_variables = top_variables, plus = TRUE)
     )
   })
 

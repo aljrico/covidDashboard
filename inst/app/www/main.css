@@ -8,6 +8,13 @@ hr {
   margin-bottom: 10px; 
 }
 
+hr.side-hr {
+  width: 92.7%;
+  margin-top: 5px;
+  margin-bottom: 5px; 
+}
+
+
 .map-container {
   position: relative;
 }
@@ -37,12 +44,20 @@ hr {
   position: absolute;
 }
 
+.side-subheading {
+    font-size: 13px;
+    left: 10px;
+    padding-bottom: 5px;
+    padding-top: 10px;
+    color: #70757a;
+}
+
 .left-table {
   left: 10px;
 }
 
 .right-table {
-    right: 10px;
+  right: 10px;
 }
 
 .date-indicator {

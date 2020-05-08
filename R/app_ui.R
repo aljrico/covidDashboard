@@ -5,16 +5,6 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
-  
-  border_css <- 
-    "
-    border-right: 2px solid #1f2430;
-    border-top: 2px solid #1f2430;
-    border-left: 2px solid #1f2430;
-    border-bottom: 2px solid #1f2430;
-    
-    "
-  
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
