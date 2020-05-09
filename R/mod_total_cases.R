@@ -68,8 +68,8 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
           )) %>%
           plotly::config(displayModeBar = F) %>%
           plotly::layout(
-            xaxis = list(title = write_title(variable)),
-            yaxis = list(title = ""),
+            xaxis = list(title = write_title(variable), fixedrange = TRUE),
+            yaxis = list(title = "", fixedrange = TRUE),
             plot_bgcolor = "#FAFAFA"
           )
       })
