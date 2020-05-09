@@ -45,8 +45,6 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
         my_bins <- c(0, 1e2, 1e3, 1e4, 1e5, Inf)
       }
 
-      saveRDS(rv$map_data, "map_data")
-
       # Prepare text for the tooltip
       mytext <- paste0(
         "<b> Country: </b> ", rv$map_data$NAME, "<br/>",
@@ -54,7 +52,7 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
       ) %>%
         lapply(htmltools::HTML)
 
-      my_palette <- leaflet::colorBin(colours, rv$map_data[[column]], na.color = "#FAFAFA", bins = my_bins)
+      my_palette <- leaflet::colorBin(colours, rv$map_data[[column]], na.color = "white", bins = my_bins)
 
 
       # Define options
@@ -74,18 +72,18 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
           lng2 = 120,
           lat2 = 90
         ) %>%
-        leaflet::addTiles() %>%
+        # leaflet::addTiles() %>%
         leaflet::setView(lat = 20, lng = 10, zoom = 2.2) %>%
         leaflet::addPolygons(
-          fill = "#FAFAFA",
-          stroke = FALSE,
-          # smoothFactor = 1,
+          fill = "white",
+          stroke = TRUE,
+          smoothFactor = 1,
           fillOpacity = 1,
           color = "#1F2430",
-          weight = 0.9,
+          weight = 1,
           label = mytext,
           labelOptions = leaflet::labelOptions(
-            style = list("font-weight" = "normal", padding = "3px 8px"),
+            style = list("font-weight" = "normal", padding = "3px 8px", "background-color" = "#FAFAFA"),
             textsize = "13px",
             direction = "auto"
           ),

@@ -28,7 +28,8 @@ Imports:
     pkgload,
     magrittr,
     sf,
-    R6
+    R6,
+    grDevices
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2

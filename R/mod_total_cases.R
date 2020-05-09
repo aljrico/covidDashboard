@@ -27,9 +27,18 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
   }
   
   pick_colour <- function(variable, alpha){
-    if(variable == 'confirmed_cases') colour <- 'rgba(255, 153, 64, '
-    if(variable == 'confirmed_deaths') colour <- 'rgba(240, 113, 113, '
-    if(variable == 'confirmed_recovered') colour <- 'rgba(85, 180, 212,  '
+    
+    write_rgb <- function(c){
+      red = grDevices::col2rgb(c)[1]
+      green = grDevices::col2rgb(c)[2]
+      blue = grDevices::col2rgb(c)[3]
+      
+      glue::glue("rgba({red}, {green}, {blue}, ")
+    }
+    
+    if(variable == 'confirmed_cases') colour <- global$colours$orange %>% write_rgb()
+    if(variable == 'confirmed_deaths') colour <- global$colours$red %>% write_rgb()
+    if(variable == 'confirmed_recovered') colour <- global$colours$green %>% write_rgb()
     
     paste0(colour, alpha, ')')
   }
