@@ -38,7 +38,7 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
     
     if(variable == 'confirmed_cases') colour <- global$colours$orange %>% write_rgb()
     if(variable == 'confirmed_deaths') colour <- global$colours$red %>% write_rgb()
-    if(variable == 'confirmed_recovered') colour <- global$colours$green %>% write_rgb()
+    if(variable == 'confirmed_recovered') colour <- global$colours$blue %>% write_rgb()
     
     paste0(colour, alpha, ')')
   }

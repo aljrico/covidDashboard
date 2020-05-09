@@ -74,7 +74,7 @@ button_class <-
         data('global')
         if (type == "infected") self$active_colour <- global$colours$orange
         if (type == "deaths") self$active_colour <- global$colours$red
-        if (type == "recovered") self$active_colour <- global$colours$green
+        if (type == "recovered") self$active_colour <- global$colours$blue
         self$inactive_colour = global$colours$dark
         private$create_style()
       },

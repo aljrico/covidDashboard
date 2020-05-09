@@ -52,6 +52,7 @@ golem::add_css_file( "big_title" )
 golem::add_css_file( "box" )
 golem::add_css_file( "main" )
 golem::add_css_file( "select_buttons" )
+golem::add_css_file("map")
 
 ## Add internal datasets ----
 ## If you have data in your package

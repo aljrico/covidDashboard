@@ -41,7 +41,7 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
       } else if (rv$selected_variable == "recovered") {
         title <- "Recovered"
         column <- "confirmed_recovered"
-        colours <- create_gradient(col1 = global$colours$grey, global$colours$green)
+        colours <- create_gradient(col1 = global$colours$grey, global$colours$blue)
         my_bins <- c(0, 1e2, 1e3, 1e4, 1e5, Inf)
       }
 
@@ -87,7 +87,10 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
             textsize = "13px",
             direction = "auto"
           ),
-          fillColor = ~ my_palette(rv$map_data[[column]])
+          fillColor = ~ my_palette(rv$map_data[[column]]),
+          highlightOptions = leaflet::highlightOptions(
+            color = "#FFCC66", opacity = 1, weight = 2, fillOpacity = 1,
+            bringToFront = TRUE, sendToBack = TRUE)
         ) 
         # leaflet::addLegend(
         #   pal = my_palette,
