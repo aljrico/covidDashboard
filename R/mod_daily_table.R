@@ -22,7 +22,9 @@ mod_daily_table_server <- function(input, output, session, rv) {
 
 
   output$daily_table <- renderUI({
-    daily_country <- rv$daily_country
+    daily_country <- 
+      rv$daily_country %>% 
+      dplyr::filter(Date == max(Date))
 
     if (rv$selected_variable == "infected") {
       title <- "Confirmed Cases"

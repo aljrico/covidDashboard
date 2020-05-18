@@ -26,23 +26,6 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
     paste0('</br> <b>', variable_text, '</b>', value_text)
   }
   
-  pick_colour <- function(variable, alpha){
-    
-    write_rgb <- function(c){
-      red = grDevices::col2rgb(c)[1]
-      green = grDevices::col2rgb(c)[2]
-      blue = grDevices::col2rgb(c)[3]
-      
-      glue::glue("rgba({red}, {green}, {blue}, ")
-    }
-    
-    if(variable == 'confirmed_cases') colour <- global$colours$orange %>% write_rgb()
-    if(variable == 'confirmed_deaths') colour <- global$colours$red %>% write_rgb()
-    if(variable == 'confirmed_recovered') colour <- global$colours$blue %>% write_rgb()
-    
-    paste0(colour, alpha, ')')
-  }
-  
   write_title <- function(variable){
     if(variable == 'confirmed_cases') title <- 'Confirmed Cases'
     if(variable == 'confirmed_deaths') title <- 'Deaths'
@@ -68,8 +51,9 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
           )) %>%
           plotly::config(displayModeBar = F) %>%
           plotly::layout(
-            xaxis = list(title = write_title(variable), fixedrange = TRUE),
+            xaxis = list(title = "", fixedrange = TRUE),
             yaxis = list(title = "", fixedrange = TRUE),
+            title = write_title(variable),
             plot_bgcolor = "#FAFAFA"
           )
       })

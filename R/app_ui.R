@@ -37,6 +37,20 @@ app_ui <- function(request) {
           width = 4,
           mod_total_cases_ui("total_recovered_country")
         )
+      ),
+      fluidRow(
+        shinydashboard::box(solidHeader = TRUE,
+                            width = 4,
+                            mod_evolution_metric_plot_ui("total_lineplot_cases")
+        ),
+        shinydashboard::box(solidHeader = TRUE,
+                            width = 4,
+                            mod_evolution_metric_plot_ui("total_lineplot_deaths")
+        ),
+        shinydashboard::box(solidHeader = TRUE,
+                            width = 4,
+                            mod_evolution_metric_plot_ui("total_lineplot_recovered")
+        )
       )
     )
   )

@@ -61,7 +61,6 @@ get_daily_country <- function(confirmed_ts, death_ts, recovered_ts, country_code
     dplyr::mutate(deaths_change = as.numeric(confirmed_deaths) - dplyr::lead(as.numeric(confirmed_deaths))) %>% 
     dplyr::mutate(recovered_change = as.numeric(confirmed_recovered) - dplyr::lead(as.numeric(confirmed_recovered))) %>% 
     dplyr::mutate(cases_change = as.numeric(confirmed_cases) - dplyr::lead(as.numeric(confirmed_cases))) %>% 
-    dplyr::filter(Date == max(Date)) %>% 
     dplyr::ungroup() %>% 
     dplyr::mutate(`Country/Region` = ifelse(`Country/Region` == 'US', 'United States', `Country/Region`)) %>% 
     dplyr::left_join(country_codes_dt)

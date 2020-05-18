@@ -10,7 +10,7 @@ app_server <- function(input, output, session) {
 
   # Load Data
   observe({
-    waiter::show_waiter(waiter::spin_folding_cube())
+    waiter::show_waiter(waiter::spin_folding_cube(), color = global$colours$dark)
     
     # Raw Data
     confirmed_ts <- load_confirmed()
@@ -24,7 +24,7 @@ app_server <- function(input, output, session) {
     
     # Last date
     rv$last_date <- confirmed_ts$Date %>% max()
-    
+    # saveRDS(as.list(rv), 'rv')
     waiter::hide_waiter()
   })
 
@@ -45,9 +45,11 @@ app_server <- function(input, output, session) {
   callModule(mod_total_cases_server, "total_deaths_country", rv$total_country, "confirmed_deaths")
   callModule(mod_total_cases_server, "total_recovered_country", rv$total_country, "confirmed_recovered")
   callModule(mod_select_buttons_server, "select_buttons", rv, global)
-
+  callModule(mod_evolution_metric_plot_server, 'total_lineplot_cases', rv, country = NULL, global, variable = "confirmed_cases")
+  callModule(mod_evolution_metric_plot_server, 'total_lineplot_deaths', rv, country = NULL, global, variable = "confirmed_deaths")
+  callModule(mod_evolution_metric_plot_server, 'total_lineplot_recovered', rv, country = NULL, global, variable = "confirmed_recovered")
+  
   observe({
-
     callModule(mod_cloropleth_server, "cloropleth", rv, global)
     callModule(mod_total_table_server, "left_table", rv)
     callModule(mod_daily_table_server, "right_table", rv)
