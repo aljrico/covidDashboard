@@ -57,10 +57,10 @@ mod_total_table_server <- function(input, output, session, rv) {
         div(
           class = "side-table-content-row",
           div(class = "side-table-content-country side-subheading", "Country"),
-          div(class = "side-table-content-number side-subheading", "Daily")
+          div(class = "side-table-content-number side-subheading", "Total")
         )
       ),
-      lapply(1:8, side_table_row, top_variables = top_variables, plus = TRUE)
+      lapply(1:8, side_table_row, top_variables = top_variables, plus = FALSE)
     )
   })
 
