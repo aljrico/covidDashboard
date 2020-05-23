@@ -48,6 +48,9 @@ app_server <- function(input, output, session) {
   callModule(mod_evolution_metric_plot_server, 'total_lineplot_cases', rv, country = NULL, global, variable = "confirmed_cases")
   callModule(mod_evolution_metric_plot_server, 'total_lineplot_deaths', rv, country = NULL, global, variable = "confirmed_deaths")
   callModule(mod_evolution_metric_plot_server, 'total_lineplot_recovered', rv, country = NULL, global, variable = "confirmed_recovered")
+  callModule(mod_daily_plot_server, 'dailyplot_cases', rv, country = NULL, global, variable = "confirmed_cases")
+  callModule(mod_daily_plot_server, 'dailyplot_deaths', rv, country = NULL, global, variable = "confirmed_deaths")
+  callModule(mod_daily_plot_server, 'dailyplot_recovered', rv, country = NULL, global, variable = "confirmed_recovered")
   
   observe({
     callModule(mod_cloropleth_server, "cloropleth", rv, global)

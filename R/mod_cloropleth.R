@@ -89,7 +89,7 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
           ),
           fillColor = ~ my_palette(rv$map_data[[column]]),
           highlightOptions = leaflet::highlightOptions(
-            color = "#FFCC66", opacity = 1, weight = 2, fillOpacity = 1,
+            color = "#FAFAFA", opacity = 1, weight = 2, fillOpacity = 1,
             bringToFront = TRUE, sendToBack = TRUE)
         ) 
         # leaflet::addLegend(

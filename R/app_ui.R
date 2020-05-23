@@ -51,6 +51,20 @@ app_ui <- function(request) {
                             width = 4,
                             mod_evolution_metric_plot_ui("total_lineplot_recovered")
         )
+      ),
+      fluidRow(
+        shinydashboard::box(solidHeader = TRUE,
+                            width = 4,
+                            mod_daily_plot_ui("dailyplot_cases")
+        ),
+        shinydashboard::box(solidHeader = TRUE,
+                            width = 4,
+                            mod_daily_plot_ui("dailyplot_deaths")
+        ),
+        shinydashboard::box(solidHeader = TRUE,
+                            width = 4,
+                            mod_daily_plot_ui("dailyplot_recovered")
+        )
       )
     )
   )
