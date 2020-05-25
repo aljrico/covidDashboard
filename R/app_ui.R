@@ -14,56 +14,66 @@ app_ui <- function(request) {
       ),
       fluidRow(
         column(5),
-        column(aligh = 'center', width = 2,
-               mod_select_buttons_ui('select_buttons')
+        column(
+          aligh = "center", width = 2,
+          mod_select_buttons_ui("select_buttons")
         )
       ),
       div(
         class = "map-container",
         div(class = "map", mod_cloropleth_ui("cloropleth")),
-        div(class = "side-table left-table", mod_total_table_ui('left_table')),
-        div(class = "side-table right-table", mod_daily_table_ui('right_table'))
+        div(class = "side-table left-table", mod_total_table_ui("left_table")),
+        div(class = "side-table right-table", mod_daily_table_ui("right_table"))
       ),
       fluidRow(
-        shinydashboard::box(solidHeader = TRUE,
+        shinydashboard::box(
+          solidHeader = TRUE,
           width = 4,
           mod_total_cases_ui("total_cases_country")
         ),
-        shinydashboard::box(solidHeader = TRUE,
+        shinydashboard::box(
+          solidHeader = TRUE,
           width = 4,
           mod_total_cases_ui("total_deaths_country")
         ),
-        shinydashboard::box(solidHeader = TRUE,
+        shinydashboard::box(
+          solidHeader = TRUE,
           width = 4,
           mod_total_cases_ui("total_recovered_country")
         )
       ),
       fluidRow(
-        shinydashboard::box(solidHeader = TRUE,
-                            width = 4,
-                            mod_evolution_metric_plot_ui("total_lineplot_cases")
+        shinydashboard::box(
+          solidHeader = TRUE,
+          width = 4,
+          mod_evolution_metric_plot_ui("total_lineplot_cases")
         ),
-        shinydashboard::box(solidHeader = TRUE,
-                            width = 4,
-                            mod_evolution_metric_plot_ui("total_lineplot_deaths")
+        shinydashboard::box(
+          solidHeader = TRUE,
+          width = 4,
+          mod_evolution_metric_plot_ui("total_lineplot_deaths")
         ),
-        shinydashboard::box(solidHeader = TRUE,
-                            width = 4,
-                            mod_evolution_metric_plot_ui("total_lineplot_recovered")
+        shinydashboard::box(
+          solidHeader = TRUE,
+          width = 4,
+          mod_evolution_metric_plot_ui("total_lineplot_recovered")
         )
       ),
       fluidRow(
-        shinydashboard::box(solidHeader = TRUE,
-                            width = 4,
-                            mod_daily_plot_ui("dailyplot_cases")
+        shinydashboard::box(
+          solidHeader = TRUE,
+          width = 4,
+          mod_daily_plot_ui("dailyplot_cases")
         ),
-        shinydashboard::box(solidHeader = TRUE,
-                            width = 4,
-                            mod_daily_plot_ui("dailyplot_deaths")
+        shinydashboard::box(
+          solidHeader = TRUE,
+          width = 4,
+          mod_daily_plot_ui("dailyplot_deaths")
         ),
-        shinydashboard::box(solidHeader = TRUE,
-                            width = 4,
-                            mod_daily_plot_ui("dailyplot_recovered")
+        shinydashboard::box(
+          solidHeader = TRUE,
+          width = 4,
+          mod_daily_plot_ui("dailyplot_recovered")
         )
       )
     )
