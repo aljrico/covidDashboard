@@ -19,12 +19,15 @@ mod_daily_plot_server <- function(input, output, session, rv, country = NULL, gl
   ns <- session$ns
  
   
-  hover_text <- function(value, variable) {
+  hover_text <- function(value, variable, d) {
     if (variable == "confirmed_cases") variable_text <- "Infected: "
     if (variable == "confirmed_deaths") variable_text <- "Deaths: "
     if (variable == "confirmed_recovered") variable_text <- "Recovered: "
     value_text <- formatC(value, format = "f", big.mark = ",", digits = 0)
-    paste0("</br> <b>", variable_text, "</b>", value_text)
+    paste0(
+      "</br> <b>", variable_text, "</b>", value_text,
+      "</br> <b>", "Date: ", "</b>", d
+    )
   }
   
   write_title <- function(variable) {
@@ -52,7 +55,7 @@ mod_daily_plot_server <- function(input, output, session, rv, country = NULL, gl
         plotly::plot_ly(
           type = "bar",
           hoverinfo = "text",
-          text = ~ hover_text(change, variable)
+          text = ~ hover_text(change, variable, Date)
         ) %>%
         plotly::add_trace(
           x = ~Date, y = ~change,

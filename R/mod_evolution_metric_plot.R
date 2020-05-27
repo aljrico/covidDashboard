@@ -18,12 +18,15 @@ mod_evolution_metric_plot_ui <- function(id) {
 mod_evolution_metric_plot_server <- function(input, output, session, rv, country = NULL, global, variable = "confirmed_cases") {
   ns <- session$ns
 
-  hover_text <- function(value, variable) {
+  hover_text <- function(value, variable, d) {
     if (variable == "confirmed_cases") variable_text <- "Infected: "
     if (variable == "confirmed_deaths") variable_text <- "Deaths: "
     if (variable == "confirmed_recovered") variable_text <- "Recovered: "
     value_text <- formatC(value, format = "f", big.mark = ",", digits = 0)
-    paste0("</br> <b>", variable_text, "</b>", value_text)
+    paste0(
+      "</br> <b>", variable_text, "</b>", value_text,
+      "</br> <b>", "Date: ", "</b>", d
+      )
   }
 
   write_title <- function(variable) {
@@ -48,7 +51,7 @@ mod_evolution_metric_plot_server <- function(input, output, session, rv, country
         plotly::plot_ly(
           type = "scatter", mode = "lines", fill = "tozeroy",
           hoverinfo = "text",
-          text = ~ hover_text(result, variable)
+          text = ~ hover_text(result, variable, Date)
         ) %>%
         plotly::add_trace(
           x = ~Date, y = ~result,

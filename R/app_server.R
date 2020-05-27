@@ -51,10 +51,11 @@ app_server <- function(input, output, session) {
   callModule(mod_daily_plot_server, 'dailyplot_cases', rv, country = NULL, global, variable = "confirmed_cases")
   callModule(mod_daily_plot_server, 'dailyplot_deaths', rv, country = NULL, global, variable = "confirmed_deaths")
   callModule(mod_daily_plot_server, 'dailyplot_recovered', rv, country = NULL, global, variable = "confirmed_recovered")
-  
+  callModule(mod_cloropleth_server, "cloropleth", rv, global)
+  callModule(mod_total_table_server, "left_table", rv)
   observe({
-    callModule(mod_cloropleth_server, "cloropleth", rv, global)
-    callModule(mod_total_table_server, "left_table", rv)
+
+
     callModule(mod_daily_table_server, "right_table", rv)
     callModule(mod_header_server, "header", rv)
   })
