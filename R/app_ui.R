@@ -95,7 +95,7 @@ golem_add_external_resources <- function() {
 
   tags$head(
     use_googlefont("Ubuntu"),
-    favicon(),
+    favicon(ext = "png"),
     shinyWidgets::useShinydashboard(),
     waiter::use_waiter(),
     bundle_resources(
