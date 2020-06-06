@@ -1,0 +1,14 @@
+.small-box.bg-orange { 
+  background-color: #FF9940 !important; 
+  color: #1f2430 !important; 
+}
+
+.small-box.bg-red { 
+  background-color: #F07171 !important; 
+  color: #1f2430 !important; 
+}
+
+.small-box.bg-blue { 
+  background-color: #5CCFE6 !important; 
+  color: #1f2430 !important; 
+}
