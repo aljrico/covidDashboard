@@ -32,6 +32,12 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
         cols <- fn_cols(seq(0, 1, length.out = 10)) / 255
         grDevices::rgb(cols[, 1], cols[, 2], cols[, 3], alpha = 1)
       }
+      
+      get_quantiles <- function(metric, n = 666){
+        qs <- seq(from = 0, to = 1, by = 1/ n)
+        bins <- unique(floor(quantile(log(metric), qs) %>% as.vector()))
+        c(bins, Inf)
+      }
 
       if (rv$selected_variable == "infected") {
         title <- "Confirmed Cases"
@@ -57,8 +63,7 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
       ) %>%
         lapply(htmltools::HTML)
 
-      my_palette <- leaflet::colorBin(colours, rv$map_data[[column]], na.color = "white", bins = my_bins)
-
+      my_palette <- leaflet::colorBin(colours, rv$map_data[[column]], na.color = "white", bins = get_quantiles(rv$map_data[[column]]))
 
       # Define options
       leaflet_options <- leaflet::leafletOptions(
@@ -93,7 +98,7 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
             textsize = "13px",
             direction = "auto"
           ),
-          fillColor = ~ my_palette(rv$map_data[[column]]),
+          fillColor = ~ my_palette(log(rv$map_data[[column]])),
           highlightOptions = leaflet::highlightOptions(
             color = "#FAFAFA", opacity = 1, weight = 2, fillOpacity = 1,
             bringToFront = TRUE, sendToBack = TRUE)
