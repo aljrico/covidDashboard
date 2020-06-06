@@ -19,6 +19,11 @@ mod_cloropleth_ui <- function(id) {
 #' @noRd
 mod_cloropleth_server <- function(input, output, session, rv, global) {
   ns <- session$ns
+  
+  observeEvent(input$cloropleth_shape_click, {
+    rv$selected_country <- input$cloropleth_shape_click$id
+  })
+  
 
   output$cloropleth <-
     leaflet::renderLeaflet({
@@ -75,6 +80,7 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
         # leaflet::addTiles() %>%
         leaflet::setView(lat = 20, lng = 10, zoom = 2.2) %>%
         leaflet::addPolygons(
+          layerId = ~country_code,
           fill = "white",
           stroke = TRUE,
           smoothFactor = 1,

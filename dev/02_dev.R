@@ -38,6 +38,7 @@ golem::add_module( name = "select_buttons" )
 golem::add_module( name = "total_table" ) 
 golem::add_module( name = "daily_table" ) 
 golem::add_module( name = "header" ) 
+golem::add_module( name = "country_modal")
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*

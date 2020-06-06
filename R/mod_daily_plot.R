@@ -42,7 +42,6 @@ mod_daily_plot_server <- function(input, output, session, rv, country = NULL, gl
       dat <- data.table::data.table(rv$daily_country)
       data.table::setnames(dat, old = "Country/Region", new = "Country")
       if (!is.null(country)) dat <- dat[Country == country]
-      
       data.table::setnames(dat, old = variable, new = "value")
       
       dat %>%

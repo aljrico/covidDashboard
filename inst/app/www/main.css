@@ -64,3 +64,8 @@ hr.side-hr {
   padding-top: 40px;
   font-weight: 600;
 }
+
+.modal-dialog{ 
+  width:1400px
+  
+}
