@@ -7,25 +7,48 @@
 #' @noRd 
 #'
 #' @importFrom shiny NS tagList 
-mod_country_modal_ui <- function(id){
+mod_country_modal_ui <- function(id) {
   ns <- NS(id)
   tagList(
     fluidRow(
-      uiOutput(ns('value_boxes'))
+      uiOutput(ns("value_boxes"))
     ),
     fluidRow(
-      column(4, plotly::plotlyOutput(ns('total_cases'))),
-      column(4, plotly::plotlyOutput(ns('total_deaths'))),
-      column(4, plotly::plotlyOutput(ns('total_recovered'))),
+      shinydashboard::box(
+        solidHeader = TRUE,
+        width = 4,
+        plotly::plotlyOutput(ns("total_cases"))
+      ),
+      shinydashboard::box(
+        solidHeader = TRUE,
+        width = 4,
+        plotly::plotlyOutput(ns("total_deaths"))
+      ),
+      shinydashboard::box(
+        solidHeader = TRUE,
+        width = 4,
+        plotly::plotlyOutput(ns("total_recovered"))
+      )
     ),
     fluidRow(
-      column(4, plotly::plotlyOutput(ns('daily_cases'))),
-      column(4, plotly::plotlyOutput(ns('daily_deaths'))),
-      column(4, plotly::plotlyOutput(ns('daily_recovered'))),
+      shinydashboard::box(
+        solidHeader = TRUE,
+        width = 4,
+        plotly::plotlyOutput(ns("daily_cases"))
+      ),
+      shinydashboard::box(
+        solidHeader = TRUE,
+        width = 4,
+        plotly::plotlyOutput(ns("daily_deaths"))
+      ),
+      shinydashboard::box(
+        solidHeader = TRUE,
+        width = 4,
+        plotly::plotlyOutput(ns("daily_recovered"))
+      )
     )
   )
-}
-    
+} 
 #' country_modal Server Function
 #'
 #' @noRd 

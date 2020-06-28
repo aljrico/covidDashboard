@@ -27,7 +27,7 @@ mod_daily_plot_server <- function(input, output, session, rv, country = NULL, gl
     })
   
 }
-    
+
 ## To be copied in the UI
 # mod_daily_plot_ui("daily_plot_ui_1")
     
