@@ -1,6 +1,14 @@
+$title-font: 'Ubuntu', sans-serif;
+
 body {
   color: #1F2430;
   font-family: 'Ubuntu', sans-serif;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #1f2430;
 }
 
 hr {
@@ -17,6 +25,7 @@ hr.side-hr {
 
 .map-container {
   position: relative;
+  border-radius: 10px;
 }
 
 .side-table {
@@ -67,5 +76,30 @@ hr.side-hr {
 
 .modal-dialog{ 
   width:1400px
+}
+
+.center {
+  margin: auto;
+  text-align: center;
+}
+
+.btn-variable {
+  color: #FAFAFA;
+  border-color: #FAFAFA;
+}
+
+.btn-variable:hover {
+  color: #1F2430;
+  border-color: #1F2430;
+  border-width: 2px;
+}
   
+.btn-infected {
+  background-color: #FF9940;
+}
+.btn-deaths {
+  background-color: #F07171;
+}
+.btn-recovered {
+  background-color: #5CCFE6;
 }

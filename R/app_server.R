@@ -28,15 +28,15 @@ app_server <- function(input, output, session) {
     waiter::hide_waiter()
   })
 
-  observeEvent(input$select_infected, {
+  observeEvent(input$infected_button, {
     rv$selected_variable <- "infected"
   })
 
-  observeEvent(input$select_deaths, {
+  observeEvent(input$deaths_button, {
     rv$selected_variable <- "deaths"
   })
 
-  observeEvent(input$select_recovered, {
+  observeEvent(input$recovered_button, {
     rv$selected_variable <- "recovered"
   })
 

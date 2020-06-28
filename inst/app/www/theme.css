@@ -1,0 +1,51 @@
+/* logo */
+.skin-blue .main-header .logo {
+  background-color: #fafafa;
+  color: #1f2430;
+  font-family: 'Ubuntu', sans-serif;
+}
+/* logo when hovered */
+.skin-blue .main-header .logo:hover {
+  background-color: #fafafa;
+}
+/* navbar (rest of the header) */
+.skin-blue .main-header .navbar {
+  background-color: #fafafa;
+}
+/* main sidebar */
+.skin-blue .main-sidebar {
+  background-color: #fafafa;
+}
+/* active selected tab in the sidebarmenu */
+.skin-blue .main-sidebar .sidebar .sidebar-menu .active a{
+  background-color: #1f2430;
+  color: #fafafa;
+}
+/* other links in the sidebarmenu */
+.skin-blue .main-sidebar .sidebar .sidebar-menu a{
+  color: #1f2430;
+}
+/* other links in the sidebarmenu when hovered */
+.skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{
+  font-weight: 700px;
+}
+
+.skin-blue .main-header .navbar .sidebar-toggle {
+    color: #1f2430;
+}
+/* toggle button when hovered  */
+.skin-blue .main-header .navbar .sidebar-toggle:hover{
+  background-color: #fafafa;
+  color: #1f2430;
+  opacity: 0.8;
+}
+/* body */
+.content-wrapper, .right-side {
+  background-color: #fff;
+}
+
+
+.main-sidebar {
+  font-family: "Ubuntu", sans-serif;
+  color: "#1f2430";
+}
