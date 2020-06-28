@@ -46,7 +46,9 @@ plot_metric_evolution <- function(data, variable){
       title = paste0("Total ", write_title(variable)),
       xaxis = list(title = '', fixedrange = TRUE, showgrid = FALSE),
       yaxis = list(title = '', fixedrange = TRUE, showgrid = FALSE),
-      plot_bgcolor = "#FAFAFA"
+      plot_bgcolor = "#FAFAFA",
+      paper_bgcolor = "#FAFAFA",
+      fig_bgcolor = "#FAFAFA"
     ) %>% 
     plotly::config(displayModeBar = FALSE)
 }

@@ -54,7 +54,9 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
             xaxis = list(title = "", fixedrange = TRUE, showgrid = FALSE),
             yaxis = list(title = "", fixedrange = TRUE, showgrid = FALSE),
             title = write_title(variable),
-            plot_bgcolor = "#FAFAFA"
+            plot_bgcolor = "#FAFAFA",
+            paper_bgcolor = "#FAFAFA",
+            fig_bgcolor = "#FAFAFA"
           )
       })
   })

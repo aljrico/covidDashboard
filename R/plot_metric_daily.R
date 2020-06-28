@@ -47,7 +47,10 @@ plot_metric_daily <- function(data, variable){
       title = paste0("Daily ", write_title(variable)),
       xaxis = list(title = '', fixedrange = TRUE, showgrid = FALSE),
       yaxis = list(title = '', fixedrange = TRUE, showgrid = FALSE),
-      plot_bgcolor = "#FAFAFA"
+      plot_bgcolor = "#FAFAFA",
+      paper_bgcolor = "#FAFAFA",
+      fig_bgcolor = "#FAFAFA"
+      
     ) %>% 
     plotly::config(displayModeBar = FALSE)
 }
