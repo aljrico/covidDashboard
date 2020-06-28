@@ -108,7 +108,7 @@ app_ui <- function(request) {
   }
 
   shinydashboard::dashboardPage(
-    shinydashboard::dashboardHeader(title = "COVID-19"),
+    shinydashboard::dashboardHeader(title = tags$img(src = "www/virus.svg", alt = "Coronavirus Logo", class = "covid-logo")),
     shinydashboard::dashboardSidebar(sidebar()),
     shinydashboard::dashboardBody(body()),
     skin = "blue"

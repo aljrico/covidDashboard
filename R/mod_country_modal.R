@@ -10,7 +10,7 @@
 mod_country_modal_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    actionButton("back_button", "", icon = icon("close")),
+    actionButton("back_button", " Back to worldwide view", icon = icon("arrow-left")),
     fluidRow(
       uiOutput(ns("value_boxes"))
     ),
