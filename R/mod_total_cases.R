@@ -53,10 +53,11 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
           plotly::layout(
             xaxis = list(title = "", fixedrange = TRUE, showgrid = FALSE),
             yaxis = list(title = "", fixedrange = TRUE, showgrid = FALSE),
-            title = write_title(variable),
+            title = write_title(variable)
+          ) %>% 
+          plotly::layout(
             plot_bgcolor = "#FAFAFA",
-            paper_bgcolor = "#FAFAFA",
-            fig_bgcolor = "#FAFAFA"
+            paper_bgcolor = "#FAFAFA"
           )
       })
   })

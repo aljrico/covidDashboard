@@ -41,19 +41,16 @@ app_server <- function(input, output, session) {
   })
   
   observeEvent(rv$selected_country, {
-    print(rv$selected_country)
-    shinyjs::hide("worldwide_view")
-    shinyjs::show("country_view")
+    shinyjs::hide("worldwide_view", animType = "fade", time = 0.5)
+    shinyjs::show("country_view", animType = "fade", time = 0.5)
   })
   
   observeEvent(input$back_button, {
-    print(input[["cloropleth-cloropleth_shape_click"]])
     session$sendCustomMessage(type = "resetValue", message = "cloropleth-cloropleth_shape_click")
     rv$selected_country <- NULL
-    print(input[["cloropleth-cloropleth_shape_click"]])
     
-    shinyjs::show("worldwide_view")
-    shinyjs::hide("country_view")
+    shinyjs::show("worldwide_view", animType = "fade", time = 0.5)
+    shinyjs::hide("country_view", animType = "fade", time = 0.5)
   })
 
   callModule(mod_total_cases_server, "total_cases_country", rv$total_country, "confirmed_cases")
