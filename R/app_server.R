@@ -10,7 +10,7 @@ app_server <- function(input, output, session) {
 
   # Load Data
   observe({
-    waiter::show_waiter(waiter::spin_folding_cube(), color = global$colours$dark)
+    waiter::show_waiter(waiter::spin_folding_cube(), color = global$colours$dark, "Loading data ...")
     
     # Raw Data
     confirmed_ts <- load_confirmed()
