@@ -31,9 +31,8 @@ app_ui <- function(request) {
     )
   }
   body <- function() {
-    tagList(
-      # Leave this function for adding external resources
-      golem_add_external_resources(),
+    
+    worldwide_view <- function(){
       fluidPage(
         div(
           class = "map-container",
@@ -94,6 +93,17 @@ app_ui <- function(request) {
           )
         )
       )
+    }
+    country_view <- function(){
+      fluidPage(
+        mod_country_modal_ui("country_modal")
+      )
+    }
+    
+    tagList(
+      golem_add_external_resources(),
+      div(worldwide_view(), id = "worldwide_view"),
+      shinyjs::hidden(div(country_view(), id = "country_view"))
     )
   }
 
@@ -122,6 +132,7 @@ golem_add_external_resources <- function() {
     use_googlefont("Ubuntu"),
     use_googlefont("Open Sans"),
     favicon(ext = "png"),
+    shinyjs::useShinyjs(),
     shinyWidgets::useShinydashboard(),
     waiter::use_waiter(),
     bundle_resources(

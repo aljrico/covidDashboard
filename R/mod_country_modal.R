@@ -10,6 +10,7 @@
 mod_country_modal_ui <- function(id) {
   ns <- NS(id)
   tagList(
+    actionButton("back_button", "", icon = icon("close")),
     fluidRow(
       uiOutput(ns("value_boxes"))
     ),
@@ -90,10 +91,6 @@ mod_country_modal_server <- function(input, output, session, rv){
       )
       
     })
-    
-    observeEvent(input$recovered_button, {
-      print('YAY')
-    })
 
     
     output$total_cases <- plotly::renderPlotly({plot_metric_evolution(dat, variable = "confirmed_cases")})
@@ -105,9 +102,10 @@ mod_country_modal_server <- function(input, output, session, rv){
     output$daily_recovered <- plotly::renderPlotly({plot_metric_daily(dat, variable = "confirmed_recovered")})
     
     country_name <- dat$Country[[1]]
-    showModal(country_modal(country_name))
+    # showModal(country_modal(country_name))
     
   })
+  
 }
     
 ## To be copied in the UI
