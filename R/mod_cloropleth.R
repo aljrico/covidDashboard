@@ -89,7 +89,9 @@ add_polygons <- function(map, rv) {
 
   colours <- create_gradient(col1 = global$colours$grey, col2 = global$colours$orange)
   my_palette <- leaflet::colorBin(colours, rv$map_data[["confirmed_cases"]], na.color = "white", bins = get_quantiles(rv$map_data[["confirmed_cases"]]))
-
+  my_palette <- leaflet::colorQuantile(colours, rv$map_data[["confirmed_cases"]], na.color = "white", probs = c(0, 0.1, 0.3, 0.6, 0.8, 0.9, 0.925, 0.95, 0.975, 0.99, 1))
+  
+  
   map %>%
     leaflet::addPolygons(
       layerId = ~country_code,
@@ -105,7 +107,7 @@ add_polygons <- function(map, rv) {
         textsize = "13px",
         direction = "auto"
       ),
-      fillColor = ~ my_palette(log(rv$map_data[["confirmed_cases"]])),
+      fillColor = ~ my_palette((rv$map_data[["confirmed_cases"]])),
       highlightOptions = leaflet::highlightOptions(
         color = "#FAFAFA", opacity = 1, weight = 2, fillOpacity = 1,
         bringToFront = TRUE, sendToBack = TRUE

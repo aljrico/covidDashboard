@@ -32,7 +32,7 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
     if(variable == 'confirmed_recovered') title <- 'Recovered'
     title
   }
-
+  
   observe({
     output$total_cases_country <-
       plotly::renderPlotly({

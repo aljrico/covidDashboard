@@ -10,5 +10,9 @@
 
 .small-box.bg-blue { 
   background-color: #5CCFE6 !important; 
-  color: #1f2430 !important; 
+  color: #1f2430 !important;
+}
+
+.col-sm-4 {
+  display: inline-block;
 }

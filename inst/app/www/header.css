@@ -1,0 +1,44 @@
+.covid-logo {
+    max-width: 50%;
+    height: auto;
+    margin: 10% 33%;
+}
+.covid-logo:hover {
+  transform: rotate(360deg);
+  transition: transform 0.5s ease-in-out;
+}
+
+.header-title {
+  margin-top: 5%;
+  margin-bottom: 4%;
+}
+
+  
+#covid-logo-container {
+  margin-top: 2%;
+  margin-left: 3%;
+  margin-bottom: 2%; 
+}
+
+/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+@media screen and (max-width: 768px) {
+  #title-container {
+    display: flex;
+  }
+  
+  #covid-logo-container {
+    margin-left: 35%;
+  }
+  .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9 {
+    display: grid;
+}
+}
+
+.img-circle {
+  border-width: 0;
+  border-radius: 100%;
+}
+
+.widget-user .widget-user-image > img {
+    border: 0;
+}

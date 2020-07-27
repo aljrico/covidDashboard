@@ -31,7 +31,8 @@ Imports:
     R6,
     grDevices,
     lubridate,
-    shinyjs
+    shinyjs,
+    shinydashboardPlus
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2

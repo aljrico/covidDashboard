@@ -10,12 +10,15 @@
 mod_country_modal_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    actionButton("back_button", " Back to worldwide view", icon = icon("globe-americas")),
-    br(),
-    br(),
     fluidRow(
-      uiOutput(ns("value_boxes"))
+      column(
+        12,
+        actionButton("back_button", " Back to worldwide view", icon = icon("globe-americas"))
+      )
     ),
+    br(),
+    br(),
+    uiOutput(ns("value_boxes")),
     fluidRow(
       shinydashboard::box(
         solidHeader = TRUE,
@@ -82,14 +85,17 @@ mod_country_modal_server <- function(input, output, session, rv){
       value_recovered <- sum(as.numeric(dat$recovered_change), na.rm = TRUE) %>% formatC(format = "f", big.mark = ",", digits = 0)
       
       
-      recovered_box <- shinydashboard::valueBox(value = value_recovered, subtitle = "Total Recovered", color = "blue", icon = icon('tablets'), href = "#")
-      recovered_box$children[[1]]$attribs$class <- paste0(recovered_box$children[[1]]$attribs$class, " action-button")
-      recovered_box$children[[1]]$attribs$id <- session$ns("recovered_button")
+      recovered_box <- shinydashboard::valueBox(value = value_recovered, subtitle = "Total Recovered", color = "blue", icon = icon('tablets'), width = 4)
+      cases_box <- shinydashboard::valueBox(value = value_cases, subtitle = "Total Cases", color = "orange", icon = icon('syringe'), width = 4)
+      deaths_box <- shinydashboard::valueBox(value = value_deaths, subtitle = "Total Deaths", color = "red", icon = icon('skull'), width = 4)
+      
+      # recovered_box$children[[1]]$attribs$class <- paste0(recovered_box$children[[1]]$attribs$class, " action-button")
+      # recovered_box$children[[1]]$attribs$id <- session$ns("recovered_button")
       
       tagList(
-        shinydashboard::valueBox(value = value_cases, subtitle = "Total Cases", color = "orange", icon = icon('syringe')),
-        shinydashboard::valueBox(value = value_deaths, subtitle = "Total Deaths", color = "red", icon = icon('skull')),
-        recovered_box
+       cases_box,
+       deaths_box,
+       recovered_box
       )
       
     })

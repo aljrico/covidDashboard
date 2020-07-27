@@ -20,14 +20,18 @@ app_ui <- function(request) {
       )
     }
 
-    div(
-      class = "center",
-      h3("Map Metric"),
-      fluidRow(
-        column(2, variable_button("infected")),
-        column(2, variable_button("deaths")),
-        column(2, variable_button("recovered"))
-      )
+    # div(
+    #   class = "center",
+    #   h3("Map Metric"),
+    #   fluidRow(
+    #     column(2, variable_button("infected")),
+    #     column(2, variable_button("deaths")),
+    #     column(2, variable_button("recovered"))
+    #   )
+    # )
+    actionLink(
+      inputId = "author_website",
+      label = "About the Author"
     )
   }
   body <- function() {

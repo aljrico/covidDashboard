@@ -28,16 +28,9 @@ app_server <- function(input, output, session) {
     waiter::hide_waiter()
   })
 
-  observeEvent(input$infected_button, {
-    rv$selected_variable <- "infected"
-  })
-
-  observeEvent(input$deaths_button, {
-    rv$selected_variable <- "deaths"
-  })
-
-  observeEvent(input$recovered_button, {
-    rv$selected_variable <- "recovered"
+  observe({
+    print(input$metric_button)
+    if(!is.null(input$metric_button)) rv$selected_variable <- input$metric_button
   })
   
   observeEvent(rv$selected_country, {
