@@ -14,5 +14,9 @@
 }
 
 .col-sm-4 {
-  display: inline-block;
+  display: grid;
+}
+
+.col-sm-12 {
+  display: grid;
 }
