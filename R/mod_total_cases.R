@@ -21,7 +21,7 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
   hover_text <- function(value, variable){
     if(variable == 'confirmed_cases') variable_text <- 'Infected: '
     if(variable == 'confirmed_deaths') variable_text <- 'Deaths: '
-    if(variable == 'confirmed_recovered') variable_text <- 'Recovered: '
+    if(variable == 'total_tests') variable_text <- 'Tests: '
     value_text <- formatC(value, format="f", big.mark=",", digits=0)
     paste0('</br> <b>', variable_text, '</b>', value_text)
   }
@@ -29,7 +29,7 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
   write_title <- function(variable){
     if(variable == 'confirmed_cases') title <- 'Confirmed Cases'
     if(variable == 'confirmed_deaths') title <- 'Deaths'
-    if(variable == 'confirmed_recovered') title <- 'Recovered'
+    if(variable == 'total_tests') title <- 'Tests'
     title
   }
   

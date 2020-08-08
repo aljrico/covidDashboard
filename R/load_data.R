@@ -43,30 +43,30 @@ load_confirmed <- function(){
 }
 
 
-#' Load Historical Recovered
+#' Load Historical tests
 #' 
 #' @noRd
 #' @export
-load_recovered <- function(){
-  # recovered_url <- "https://data.humdata.org/hxlproxy/data/download/time_series_covid19_recovered_global_narrow.csv?dest=data_edit&filter01=explode&explode-header-att01=date&explode-value-att01=value&filter02=rename&rename-oldtag02=%23affected%2Bdate&rename-newtag02=%23date&rename-header02=Date&filter03=rename&rename-oldtag03=%23affected%2Bvalue&rename-newtag03=%23affected%2Binfected%2Bvalue%2Bnum&rename-header03=Value&filter04=clean&clean-date-tags04=%23date&filter05=sort&sort-tags05=%23date&sort-reverse05=on&filter06=sort&sort-tags06=%23country%2Bname%2C%23adm1%2Bname&tagger-match-all=on&tagger-default-tag=%23affected%2Blabel&tagger-01-header=province%2Fstate&tagger-01-tag=%23adm1%2Bname&tagger-02-header=country%2Fregion&tagger-02-tag=%23country%2Bname&tagger-03-header=lat&tagger-03-tag=%23geo%2Blat&tagger-04-header=long&tagger-04-tag=%23geo%2Blon&header-row=1&url=https%3A%2F%2Fraw.githubusercontent.com%2FCSSEGISandData%2FCOVID-19%2Fmaster%2Fcsse_covid_19_data%2Fcsse_covid_19_time_series%2Ftime_series_covid19_recovered_global.csv"
-  # recovered_dt <- 
-  #   data.table::fread(recovered_url)[-1,] %>% 
-  #   dplyr::rename(confirmed_recovered = Value)
+load_tests <- function(){
+  # tests_url <- "https://data.humdata.org/hxlproxy/data/download/time_series_covid19_tests_global_narrow.csv?dest=data_edit&filter01=explode&explode-header-att01=date&explode-value-att01=value&filter02=rename&rename-oldtag02=%23affected%2Bdate&rename-newtag02=%23date&rename-header02=Date&filter03=rename&rename-oldtag03=%23affected%2Bvalue&rename-newtag03=%23affected%2Binfected%2Bvalue%2Bnum&rename-header03=Value&filter04=clean&clean-date-tags04=%23date&filter05=sort&sort-tags05=%23date&sort-reverse05=on&filter06=sort&sort-tags06=%23country%2Bname%2C%23adm1%2Bname&tagger-match-all=on&tagger-default-tag=%23affected%2Blabel&tagger-01-header=province%2Fstate&tagger-01-tag=%23adm1%2Bname&tagger-02-header=country%2Fregion&tagger-02-tag=%23country%2Bname&tagger-03-header=lat&tagger-03-tag=%23geo%2Blat&tagger-04-header=long&tagger-04-tag=%23geo%2Blon&header-row=1&url=https%3A%2F%2Fraw.githubusercontent.com%2FCSSEGISandData%2FCOVID-19%2Fmaster%2Fcsse_covid_19_data%2Fcsse_covid_19_time_series%2Ftime_series_covid19_tests_global.csv"
+  # tests_dt <- 
+  #   data.table::fread(tests_url)[-1,] %>% 
+  #   dplyr::rename(total_tests = Value)
   
   dt <- 
     download_all_data() %>% 
     dplyr::select(location, date, total_tests) %>% 
     dplyr::mutate(location = ifelse(location == "United States", "US", location)) %>% 
-    dplyr::rename(confirmed_recovered = total_tests, Date = date, `Country/Region` = location) %>% 
+    dplyr::rename(total_tests = total_tests, Date = date, `Country/Region` = location) %>% 
     data.table::data.table()
   
   # Fill missing gaps
-  dt[, confirmed_recovered := confirmed_recovered[1], .(`Country/Region`, cumsum(!is.na(confirmed_recovered)))]
+  dt[, total_tests := total_tests[1], .(`Country/Region`, cumsum(!is.na(total_tests)))]
   
   return(dt)
 }
 
-#' Load Historical Recovered
+#' Load Historical tests
 #' 
 #' @noRd
 #' @export
@@ -85,15 +85,15 @@ country_codes <- function(){
 #' 
 #' @noRd
 #' @export
-get_daily_country <- function(confirmed_ts, death_ts, recovered_ts, country_codes_dt){
+get_daily_country <- function(confirmed_ts, death_ts, tests_ts, country_codes_dt){
   
   daily_country <- 
   confirmed_ts %>% 
     dplyr::left_join(death_ts) %>% 
-    dplyr::left_join(recovered_ts) %>% 
+    dplyr::left_join(tests_ts) %>% 
     dplyr::group_by(`Country/Region`) %>% 
     dplyr::mutate(deaths_change = as.numeric(confirmed_deaths) - dplyr::lead(as.numeric(confirmed_deaths))) %>% 
-    dplyr::mutate(recovered_change = as.numeric(confirmed_recovered) - dplyr::lead(as.numeric(confirmed_recovered))) %>% 
+    dplyr::mutate(tests_change = as.numeric(total_tests) - dplyr::lead(as.numeric(total_tests))) %>% 
     dplyr::mutate(cases_change = as.numeric(confirmed_cases) - dplyr::lead(as.numeric(confirmed_cases))) %>% 
     dplyr::ungroup() %>% 
     dplyr::mutate(`Country/Region` = ifelse(`Country/Region` == 'US', 'United States', `Country/Region`)) %>% 
@@ -106,16 +106,16 @@ get_daily_country <- function(confirmed_ts, death_ts, recovered_ts, country_code
 #' 
 #' @noRd
 #' @export
-get_total_country <- function(confirmed_ts, death_ts, recovered_ts, country_codes_dt){
+get_total_country <- function(confirmed_ts, death_ts, tests_ts, country_codes_dt){
   
   total_country <- 
     confirmed_ts %>% 
     dplyr::left_join(death_ts) %>% 
-    dplyr::left_join(recovered_ts) %>% 
+    dplyr::left_join(tests_ts) %>% 
     dplyr::group_by(`Country/Region`) %>% 
     dplyr::filter(Date == max(Date)) %>% 
     dplyr::summarise(confirmed_cases = sum(as.numeric(confirmed_cases), na.rm = TRUE),
-                     confirmed_recovered = sum(as.numeric(confirmed_recovered), na.rm = TRUE),
+                     total_tests = sum(as.numeric(total_tests), na.rm = TRUE),
                      confirmed_deaths = sum(as.numeric(confirmed_deaths), na.rm = TRUE)) %>% 
     dplyr::arrange(desc(confirmed_cases)) %>% 
     dplyr::ungroup() %>% 

@@ -52,7 +52,7 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
         leaflet::setView(lat = 20, lng = 10, zoom = 2.2) %>%
         add_polygons(rv) %>%
         leaflet::addControl(html = legend_hint(), position = "topright")
-      # leaflet::addLayersControl(baseGroups = c("confirmed_cases", "confirmed_deaths", "confirmed_recovered"))
+      # leaflet::addLayersControl(baseGroups = c("confirmed_cases", "confirmed_deaths", "total_tests"))
       # leaflet::addLegend(
       #   pal = my_palette,
       #   values = ~ rv$selected_variable,
@@ -83,7 +83,7 @@ add_polygons <- function(map, rv) {
     "<hr>",
     "<b> Infected: </b> ", prettyNum(rv$map_data[["confirmed_cases"]], big.mark = ","), "<br/>",
     "<b> Deaths: </b> ", prettyNum(rv$map_data[["confirmed_deaths"]], big.mark = ","), "<br/>",
-    "<b> Recovered: </b> ", prettyNum(rv$map_data[["confirmed_recovered"]], big.mark = ","), "<br/>"
+    "<b> Tests: </b> ", prettyNum(rv$map_data[["total_tests"]], big.mark = ","), "<br/>"
   ) %>%
     lapply(htmltools::HTML)
 

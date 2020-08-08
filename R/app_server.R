@@ -15,11 +15,11 @@ app_server <- function(input, output, session) {
     # Raw Data
     confirmed_ts <- load_confirmed()
     death_ts <- load_deaths()
-    recovered_ts <- load_recovered()
+    tests_ts <- load_tests()
     
     # Processed Data
-    rv$daily_country <- get_daily_country(confirmed_ts, death_ts, recovered_ts, country_codes_dt)
-    rv$total_country <- get_total_country(confirmed_ts, death_ts, recovered_ts, country_codes_dt)
+    rv$daily_country <- get_daily_country(confirmed_ts, death_ts, tests_ts, country_codes_dt)
+    rv$total_country <- get_total_country(confirmed_ts, death_ts, tests_ts, country_codes_dt)
     rv$map_data <- get_map_data(rv$total_country)
     
     # Last date
@@ -48,14 +48,14 @@ app_server <- function(input, output, session) {
 
   callModule(mod_total_cases_server, "total_cases_country", rv$total_country, "confirmed_cases")
   callModule(mod_total_cases_server, "total_deaths_country", rv$total_country, "confirmed_deaths")
-  callModule(mod_total_cases_server, "total_recovered_country", rv$total_country, "confirmed_recovered")
+  callModule(mod_total_cases_server, "total_tests_country", rv$total_country, "total_tests")
   callModule(mod_select_buttons_server, "select_buttons", rv, global)
   callModule(mod_evolution_metric_plot_server, 'total_lineplot_cases', rv, country = NULL, global, variable = "confirmed_cases")
   callModule(mod_evolution_metric_plot_server, 'total_lineplot_deaths', rv, country = NULL, global, variable = "confirmed_deaths")
-  callModule(mod_evolution_metric_plot_server, 'total_lineplot_recovered', rv, country = NULL, global, variable = "confirmed_recovered")
+  callModule(mod_evolution_metric_plot_server, 'total_lineplot_tests', rv, country = NULL, global, variable = "total_tests")
   callModule(mod_daily_plot_server, 'dailyplot_cases', rv, country = NULL, global, variable = "confirmed_cases")
   callModule(mod_daily_plot_server, 'dailyplot_deaths', rv, country = NULL, global, variable = "confirmed_deaths")
-  callModule(mod_daily_plot_server, 'dailyplot_recovered', rv, country = NULL, global, variable = "confirmed_recovered")
+  callModule(mod_daily_plot_server, 'dailyplot_tests', rv, country = NULL, global, variable = "total_tests")
   callModule(mod_cloropleth_server, "cloropleth", rv, global)
   callModule(mod_total_table_server, "left_table", rv)
   callModule(mod_country_modal_server, "country_modal", rv)

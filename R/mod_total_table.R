@@ -33,10 +33,10 @@ mod_total_table_server <- function(input, output, session, rv) {
       title <- "Deaths"
       column <- "confirmed_deaths"
       id <- "deaths"
-    } else if (rv$selected_variable == "recovered") {
-      title <- "Recovered"
-      column <- "confirmed_recovered"
-      id <- "recovered"
+    } else if (rv$selected_variable == "tests") {
+      title <- "Tests"
+      column <- "total_tests"
+      id <- "tests"
     }
     
     total_country$variable <- total_country[[column]]

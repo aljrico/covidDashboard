@@ -23,22 +23,22 @@ mod_select_buttons_server <- function(input, output, session, rv, global) {
   button_style <- reactiveValues()
   infected_button <- button_class$new(type = "infected")
   deaths_button <- button_class$new(type = "deaths")
-  recovered_button <- button_class$new(type = "recovered")
+  tests_button <- button_class$new(type = "tests")
   
 
   observeEvent(rv$selected_variable, {
     if (rv$selected_variable == "infected") {
       infected_button$activate()
       deaths_button$deactivate()
-      recovered_button$deactivate()
+      tests_button$deactivate()
     } else if (rv$selected_variable == "deaths") {
       infected_button$deactivate()
       deaths_button$activate()
-      recovered_button$deactivate()
-    } else if (rv$selected_variable == "recovered") {
+      tests_button$deactivate()
+    } else if (rv$selected_variable == "tests") {
       infected_button$deactivate()
       deaths_button$deactivate()
-      recovered_button$activate()
+      tests_button$activate()
     }
   })
 
@@ -49,7 +49,7 @@ mod_select_buttons_server <- function(input, output, session, rv, global) {
         tagList(
           actionButton("select_infected", "Infected", style = infected_button$style),
           actionButton("select_deaths", "Deaths", style = deaths_button$style),
-          actionButton("select_recovered", "Recovered", style = recovered_button$style)
+          actionButton("select_tests", "tests", style = tests_button$style)
         )
       })
   })
@@ -74,7 +74,7 @@ button_class <-
         data('global')
         if (type == "infected") self$active_colour <- global$colours$orange
         if (type == "deaths") self$active_colour <- global$colours$red
-        if (type == "recovered") self$active_colour <- global$colours$blue
+        if (type == "tests") self$active_colour <- global$colours$blue
         self$inactive_colour = global$colours$dark
         private$create_style()
       },

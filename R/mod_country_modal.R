@@ -33,7 +33,7 @@ mod_country_modal_ui <- function(id) {
       shinydashboard::box(
         solidHeader = TRUE,
         width = 4,
-        plotly::plotlyOutput(ns("total_recovered"))
+        plotly::plotlyOutput(ns("total_tests"))
       )
     ),
     fluidRow(
@@ -50,7 +50,7 @@ mod_country_modal_ui <- function(id) {
       shinydashboard::box(
         solidHeader = TRUE,
         width = 4,
-        plotly::plotlyOutput(ns("daily_recovered"))
+        plotly::plotlyOutput(ns("daily_tests"))
       )
     )
   )
@@ -82,20 +82,20 @@ mod_country_modal_server <- function(input, output, session, rv){
       
       value_cases <- sum(as.numeric(dat$cases_change), na.rm = TRUE) %>% formatC(format = "f", big.mark = ",", digits = 0)
       value_deaths <- sum(as.numeric(dat$deaths_change), na.rm = TRUE) %>% formatC(format = "f", big.mark = ",", digits = 0)
-      value_recovered <- sum(as.numeric(dat$recovered_change), na.rm = TRUE) %>% formatC(format = "f", big.mark = ",", digits = 0)
+      value_tests <- sum(as.numeric(dat$tests_change), na.rm = TRUE) %>% formatC(format = "f", big.mark = ",", digits = 0)
       
       
-      recovered_box <- shinydashboard::valueBox(value = value_recovered, subtitle = "Total Recovered", color = "blue", icon = icon('tablets'), width = 4)
+      tests_box <- shinydashboard::valueBox(value = value_tests, subtitle = "Total tests", color = "blue", icon = icon('tablets'), width = 4)
       cases_box <- shinydashboard::valueBox(value = value_cases, subtitle = "Total Cases", color = "orange", icon = icon('syringe'), width = 4)
       deaths_box <- shinydashboard::valueBox(value = value_deaths, subtitle = "Total Deaths", color = "red", icon = icon('skull'), width = 4)
       
-      # recovered_box$children[[1]]$attribs$class <- paste0(recovered_box$children[[1]]$attribs$class, " action-button")
-      # recovered_box$children[[1]]$attribs$id <- session$ns("recovered_button")
+      # tests_box$children[[1]]$attribs$class <- paste0(tests_box$children[[1]]$attribs$class, " action-button")
+      # tests_box$children[[1]]$attribs$id <- session$ns("tests_button")
       
       tagList(
        cases_box,
        deaths_box,
-       recovered_box
+       tests_box
       )
       
     })
@@ -103,11 +103,11 @@ mod_country_modal_server <- function(input, output, session, rv){
     
     output$total_cases <- plotly::renderPlotly({plot_metric_evolution(dat, variable = "confirmed_cases")})
     output$total_deaths <- plotly::renderPlotly({plot_metric_evolution(dat, variable = "confirmed_deaths")})
-    output$total_recovered <- plotly::renderPlotly({plot_metric_evolution(dat, variable = "confirmed_recovered")})
+    output$total_tests <- plotly::renderPlotly({plot_metric_evolution(dat, variable = "total_tests")})
     
     output$daily_cases <- plotly::renderPlotly({plot_metric_daily(dat, variable = "confirmed_cases")})
     output$daily_deaths <- plotly::renderPlotly({plot_metric_daily(dat, variable = "confirmed_deaths")})
-    output$daily_recovered <- plotly::renderPlotly({plot_metric_daily(dat, variable = "confirmed_recovered")})
+    output$daily_tests <- plotly::renderPlotly({plot_metric_daily(dat, variable = "total_tests")})
     
     country_name <- dat$Country[[1]]
     # showModal(country_modal(country_name))

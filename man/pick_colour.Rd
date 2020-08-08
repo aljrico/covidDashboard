@@ -7,7 +7,7 @@
 pick_colour(variable, alpha = 1, rgb = TRUE)
 }
 \arguments{
-\item{variable}{String selecting the variable of study. One of c('confirmed_cases', 'confirmed_deaths', 'confirmed_recovered')}
+\item{variable}{String selecting the variable of study. One of c('confirmed_cases', 'confirmed_deaths', 'total_tests')}
 
 \item{alpha}{Alpha value of the final colour}
 }

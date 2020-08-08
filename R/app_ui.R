@@ -9,7 +9,7 @@ app_ui <- function(request) {
     variable_button <- function(variable) {
       if (variable == "infected") symbol <- "syringe"
       if (variable == "deaths") symbol <- "skull"
-      if (variable == "recovered") symbol <- "tablets"
+      if (variable == "tests") symbol <- "tablets"
 
 
       tags$button(
@@ -26,7 +26,7 @@ app_ui <- function(request) {
     #   fluidRow(
     #     column(2, variable_button("infected")),
     #     column(2, variable_button("deaths")),
-    #     column(2, variable_button("recovered"))
+    #     column(2, variable_button("tests"))
     #   )
     # )
     actionLink(
@@ -59,7 +59,7 @@ app_ui <- function(request) {
           shinydashboard::box(
             solidHeader = TRUE,
             width = 4,
-            mod_total_cases_ui("total_recovered_country")
+            mod_total_cases_ui("total_tests_country")
           )
         ),
         fluidRow(
@@ -76,7 +76,7 @@ app_ui <- function(request) {
           shinydashboard::box(
             solidHeader = TRUE,
             width = 4,
-            mod_evolution_metric_plot_ui("total_lineplot_recovered")
+            mod_evolution_metric_plot_ui("total_lineplot_tests")
           )
         ),
         fluidRow(
@@ -93,7 +93,7 @@ app_ui <- function(request) {
           shinydashboard::box(
             solidHeader = TRUE,
             width = 4,
-            mod_daily_plot_ui("dailyplot_recovered")
+            mod_daily_plot_ui("dailyplot_tests")
           )
         )
       )

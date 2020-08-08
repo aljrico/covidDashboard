@@ -34,10 +34,10 @@ mod_daily_table_server <- function(input, output, session, rv) {
       title <- "Deaths"
       column <- "deaths_change"
       id <- "deaths"
-    } else if (rv$selected_variable == "recovered") {
-      title <- "Recovered"
-      column <- "recovered_change"
-      id <- "recovered"
+    } else if (rv$selected_variable == "tests") {
+      title <- "Tests"
+      column <- "tests_change"
+      id <- "tests"
     }
 
     daily_country$variable <- daily_country[[column]]
