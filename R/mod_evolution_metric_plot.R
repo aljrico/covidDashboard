@@ -21,7 +21,7 @@ mod_evolution_metric_plot_server <- function(input, output, session, rv, country
   output$line_plot <- 
     plotly::renderPlotly({
       dat <- data.table::data.table(rv$daily_country)
-      data.table::setnames(dat, old = "Country/Region", new = "Country")
+      data.table::setnames(dat, old = "location", new = "Country")
       if (!is.null(country)) dat <- dat[Country == country]
       plot_metric_evolution(dat, variable)
     })

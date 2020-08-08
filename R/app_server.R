@@ -7,15 +7,18 @@
 app_server <- function(input, output, session) {
   rv <- reactiveValues()
   rv$selected_variable <- "infected"
+  
+  data_handler <- DataHandler$new()
 
   # Load Data
   observe({
     waiter::show_waiter(waiter::spin_folding_cube(), color = global$colours$dark, "Loading data ...")
     
     # Raw Data
-    confirmed_ts <- load_confirmed()
-    death_ts <- load_deaths()
-    tests_ts <- load_tests()
+    confirmed_ts <- data_handler$infected_data
+    death_ts <- data_handler$deaths_data
+    tests_ts <- data_handler$tests_data
+    country_codes_dt <- data_handler$country_codes
     
     # Processed Data
     rv$daily_country <- get_daily_country(confirmed_ts, death_ts, tests_ts, country_codes_dt)
@@ -24,7 +27,9 @@ app_server <- function(input, output, session) {
     
     # Last date
     rv$last_date <- confirmed_ts$Date %>% max()
-    # saveRDS(as.list(rv), 'rv')
+    
+    print(data_handler$raw_data$date %>% max())
+    
     waiter::hide_waiter()
   })
 

@@ -44,7 +44,7 @@ mod_total_table_server <- function(input, output, session, rv) {
     
     top_variables <- 
       total_country %>%
-      dplyr::group_by(`Country/Region`) %>%
+      dplyr::group_by(location) %>%
       dplyr::summarise(variable = sum(variable, na.rm = TRUE)) %>%
       dplyr::ungroup() %>%
       # dplyr::top_n(n = 10, wt = variable) %>%
@@ -66,7 +66,7 @@ mod_total_table_server <- function(input, output, session, rv) {
 
   # 
   # total_country %>%
-  #   dplyr::group_by(`Country/Region`) %>%
+  #   dplyr::group_by(location) %>%
   #   dplyr::summarise(variable = sum(variable, na.rm = TRUE)) %>%
   #   dplyr::ungroup() %>%
   #   dplyr::top_n(n = 10, wt = variable) %>%
@@ -81,7 +81,7 @@ mod_total_table_server <- function(input, output, session, rv) {
   #     )
   #   ) %>%
   #   DT::formatStyle(
-  #     columns = c("variable", "Country/Region"),
+  #     columns = c("variable", "location"),
   #     # color = rv$colours$dark,
   #     color = "#1F2430",
   #     # backgroundColor = rv$colours$grey

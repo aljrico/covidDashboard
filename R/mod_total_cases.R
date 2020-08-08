@@ -37,11 +37,11 @@ mod_total_cases_server <- function(input, output, session, total_country, variab
     output$total_cases_country <-
       plotly::renderPlotly({
         total_country %>%
-          dplyr::select(c(!!variable, `Country/Region`)) %>% 
+          dplyr::select(c(!!variable, location)) %>% 
           dplyr::ungroup() %>% 
           dplyr::rename(value = !!variable) %>% 
           dplyr::top_n(13, value) %>%  
-          plotly::plot_ly(y = ~ reorder(`Country/Region`, value), 
+          plotly::plot_ly(y = ~ reorder(location, value), 
                           x = ~value, orientation = "h",
                           hoverinfo = 'text', 
                           text = ~hover_text(value, variable)) %>%

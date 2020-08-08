@@ -45,7 +45,7 @@ mod_daily_table_server <- function(input, output, session, rv) {
 
     top_variables <-
       daily_country %>%
-      dplyr::group_by(`Country/Region`) %>%
+      dplyr::group_by(location) %>%
       dplyr::summarise(variable = sum(variable, na.rm = TRUE)) %>%
       dplyr::ungroup() %>%
       dplyr::arrange(desc(variable)) %>%

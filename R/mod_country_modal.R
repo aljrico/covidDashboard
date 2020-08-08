@@ -75,7 +75,7 @@ mod_country_modal_server <- function(input, output, session, rv){
   
   observeEvent(rv$selected_country, {
     dat <- data.table::copy(rv$daily_country)
-    dat <- data.table::setnames(dat, old = "Country/Region", new = "Country")
+    dat <- data.table::setnames(dat, old = "location", new = "Country")
     dat <- dat %>% dplyr::filter(country_code == rv$selected_country)
     
     output$value_boxes <- renderUI({
