@@ -52,7 +52,7 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
         leaflet::setView(lat = 20, lng = 10, zoom = 2.2) %>%
         add_polygons(rv) %>%
         leaflet::addControl(html = legend_hint(), position = "topright")
-      # leaflet::addLayersControl(baseGroups = c("confirmed_cases", "confirmed_deaths", "confirmed_recovered"))
+      # leaflet::addLayersControl(baseGroups = c("total_cases", "total_deaths", "total_recovered"))
       # leaflet::addLegend(
       #   pal = my_palette,
       #   values = ~ rv$selected_variable,
@@ -67,7 +67,7 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
 add_polygons <- function(map, rv) {
   get_quantiles <- function(metric, n = 666) {
     qs <- seq(from = 0, to = 1, by = 1 / n)
-    bins <- unique(floor(quantile(log(metric), qs) %>% as.vector()))
+    bins <- unique(floor(quantile(log(metric), qs, na.rm = TRUE) %>% as.vector()))
     c(bins, Inf)
   }
   
@@ -81,15 +81,15 @@ add_polygons <- function(map, rv) {
   mytext <- paste0(
     "<b> Country: </b> ", rv$map_data$NAME, "<br/>",
     "<hr>",
-    "<b> Infected: </b> ", prettyNum(rv$map_data[["confirmed_cases"]], big.mark = ","), "<br/>",
-    "<b> Deaths: </b> ", prettyNum(rv$map_data[["confirmed_deaths"]], big.mark = ","), "<br/>",
-    "<b> Recovered: </b> ", prettyNum(rv$map_data[["confirmed_recovered"]], big.mark = ","), "<br/>"
+    "<b> Infected: </b> ", prettyNum(rv$map_data[["total_cases"]], big.mark = ","), "<br/>",
+    "<b> Deaths: </b> ", prettyNum(rv$map_data[["total_deaths"]], big.mark = ","), "<br/>",
+    "<b> Recovered: </b> ", prettyNum(rv$map_data[["total_recovered"]], big.mark = ","), "<br/>"
   ) %>%
     lapply(htmltools::HTML)
 
   colours <- create_gradient(col1 = global$colours$grey, col2 = global$colours$orange)
-  my_palette <- leaflet::colorBin(colours, rv$map_data[["confirmed_cases"]], na.color = "white", bins = get_quantiles(rv$map_data[["confirmed_cases"]]))
-  my_palette <- leaflet::colorQuantile(colours, rv$map_data[["confirmed_cases"]], na.color = "white", probs = c(0, 0.1, 0.3, 0.6, 0.8, 0.9, 0.925, 0.95, 0.975, 0.99, 1))
+  my_palette <- leaflet::colorBin(colours, rv$map_data[["total_cases"]], na.color = "white", bins = get_quantiles(rv$map_data[["total_cases"]]))
+  my_palette <- leaflet::colorQuantile(colours, rv$map_data[["total_cases"]], na.color = "white", probs = c(0, 0.1, 0.3, 0.6, 0.8, 0.9, 0.925, 0.95, 0.975, 0.99, 1))
   
   
   map %>%
@@ -107,7 +107,7 @@ add_polygons <- function(map, rv) {
         textsize = "13px",
         direction = "auto"
       ),
-      fillColor = ~ my_palette((rv$map_data[["confirmed_cases"]])),
+      fillColor = ~ my_palette((rv$map_data[["total_cases"]])),
       highlightOptions = leaflet::highlightOptions(
         color = "#FAFAFA", opacity = 1, weight = 2, fillOpacity = 1,
         bringToFront = TRUE, sendToBack = TRUE

@@ -6,30 +6,25 @@
 #' @noRd
 app_server <- function(input, output, session) {
   rv <- reactiveValues()
-  rv$selected_variable <- "infected"
+  # rv$selected_variable <- "infected"
 
   # Load Data
   observe({
     waiter::show_waiter(waiter::spin_folding_cube(), color = global$colours$dark, "Loading data ...")
     
-    # Raw Data
-    confirmed_ts <- load_confirmed()
-    death_ts <- load_deaths()
-    recovered_ts <- load_recovered()
+    # Prepare Data
+    global_data <- data_handler$new()
     
     # Processed Data
-    rv$daily_country <- get_daily_country(confirmed_ts, death_ts, recovered_ts, country_codes_dt)
-    rv$total_country <- get_total_country(confirmed_ts, death_ts, recovered_ts, country_codes_dt)
-    rv$map_data <- get_map_data(rv$total_country)
-    
-    # Last date
-    rv$last_date <- confirmed_ts$Date %>% max()
-    # saveRDS(as.list(rv), 'rv')
+    rv$world_data <- global_data$world_data
+    rv$daily_country <- global_data$daily_country
+    rv$total_country <- global_data$total_country
+    rv$map_data <- global_data$map_data
+
     waiter::hide_waiter()
   })
 
   observe({
-    print(input$metric_button)
     if(!is.null(input$metric_button)) rv$selected_variable <- input$metric_button
   })
   
@@ -46,9 +41,9 @@ app_server <- function(input, output, session) {
     shinyjs::show("worldwide_view", animType = "fade", time = 0.5)
   })
 
-  callModule(mod_total_cases_server, "total_cases_country", rv$total_country, "confirmed_cases")
-  callModule(mod_total_cases_server, "total_deaths_country", rv$total_country, "confirmed_deaths")
-  callModule(mod_total_cases_server, "total_recovered_country", rv$total_country, "confirmed_recovered")
+  callModule(mod_total_cases_server, "total_cases_country", rv$total_country, "total_cases")
+  callModule(mod_total_cases_server, "total_deaths_country", rv$total_country, "total_deaths")
+  callModule(mod_total_cases_server, "total_recovered_country", rv$total_country, "total_tests")
   callModule(mod_select_buttons_server, "select_buttons", rv, global)
   callModule(mod_evolution_metric_plot_server, 'total_lineplot_cases', rv, country = NULL, global, variable = "confirmed_cases")
   callModule(mod_evolution_metric_plot_server, 'total_lineplot_deaths', rv, country = NULL, global, variable = "confirmed_deaths")

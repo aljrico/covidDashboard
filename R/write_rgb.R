@@ -18,9 +18,9 @@ write_rgb <- function(c) {
 #' @param alpha Alpha value of the final colour
 #' @export
 pick_colour <- function(variable, alpha = 1, rgb = TRUE) {
-  if (variable == "confirmed_cases") colour <- global$colours$orange
-  if (variable == "confirmed_deaths") colour <- global$colours$red
-  if (variable == "confirmed_recovered") colour <- global$colours$blue
+  if (variable == "total_cases") colour <- global$colours$orange
+  if (variable == "total_deaths") colour <- global$colours$red
+  if (variable == "total_recovered") colour <- global$colours$blue
 
   if (rgb == TRUE) {
     colour <- colour %>% write_rgb()

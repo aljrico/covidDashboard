@@ -28,15 +28,15 @@ mod_daily_table_server <- function(input, output, session, rv) {
 
     if (rv$selected_variable == "infected") {
       title <- "Confirmed Cases"
-      column <- "cases_change"
+      column <- "new_cases"
       id <- "confirmed"
     } else if (rv$selected_variable == "deaths") {
       title <- "Deaths"
-      column <- "deaths_change"
+      column <- "new_deaths"
       id <- "deaths"
     } else if (rv$selected_variable == "recovered") {
       title <- "Recovered"
-      column <- "recovered_change"
+      column <- "new_recovered"
       id <- "recovered"
     }
 

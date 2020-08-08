@@ -80,17 +80,14 @@ mod_country_modal_server <- function(input, output, session, rv){
     
     output$value_boxes <- renderUI({
       
-      value_cases <- sum(as.numeric(dat$cases_change), na.rm = TRUE) %>% formatC(format = "f", big.mark = ",", digits = 0)
-      value_deaths <- sum(as.numeric(dat$deaths_change), na.rm = TRUE) %>% formatC(format = "f", big.mark = ",", digits = 0)
-      value_recovered <- sum(as.numeric(dat$recovered_change), na.rm = TRUE) %>% formatC(format = "f", big.mark = ",", digits = 0)
+      value_cases <- sum(as.numeric(dat$new_cases), na.rm = TRUE) %>% formatC(format = "f", big.mark = ",", digits = 0)
+      value_deaths <- sum(as.numeric(dat$new_deaths), na.rm = TRUE) %>% formatC(format = "f", big.mark = ",", digits = 0)
+      value_recovered <- sum(as.numeric(dat$new_recovered), na.rm = TRUE) %>% formatC(format = "f", big.mark = ",", digits = 0)
       
       
       recovered_box <- shinydashboard::valueBox(value = value_recovered, subtitle = "Total Recovered", color = "blue", icon = icon('tablets'), width = 4)
       cases_box <- shinydashboard::valueBox(value = value_cases, subtitle = "Total Cases", color = "orange", icon = icon('syringe'), width = 4)
       deaths_box <- shinydashboard::valueBox(value = value_deaths, subtitle = "Total Deaths", color = "red", icon = icon('skull'), width = 4)
-      
-      # recovered_box$children[[1]]$attribs$class <- paste0(recovered_box$children[[1]]$attribs$class, " action-button")
-      # recovered_box$children[[1]]$attribs$id <- session$ns("recovered_button")
       
       tagList(
        cases_box,
