@@ -8,6 +8,11 @@
 run_app <- function(
   ...
 ) {
+  
+  print(list.files())
+  
+  source("inst/global.R")
+  
   with_golem_options(
     app = shinyApp(
       ui = app_ui, 

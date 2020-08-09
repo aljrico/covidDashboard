@@ -5,6 +5,7 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
+  
   sidebar <- function() {
     variable_button <- function(variable) {
       if (variable == "infected") symbol <- "syringe"

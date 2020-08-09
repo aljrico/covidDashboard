@@ -122,6 +122,9 @@ CountryDetails <-
   "CountryDetails",
   public = list(
     ui = function(id) mod_country_modal_ui(id),
-    server = function(input, output, session, rv) mod_country_modal_server(input, output, session, rv)
+    init_server = function(rv) callModule(mod_country_modal_server, "country_modal", rv)
+  ),
+  private = list(
+    server = mod_country_modal_server
   )
 )

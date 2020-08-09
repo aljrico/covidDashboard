@@ -7,9 +7,6 @@
 app_server <- function(input, output, session) {
   rv <- reactiveValues()
   rv$selected_variable <- "infected"
-  
-  data_handler <- DataHandler$new()
-  country_details <- CountryDetails$new()
 
   # Load Data
   observe({
@@ -62,6 +59,8 @@ app_server <- function(input, output, session) {
   callModule(mod_cloropleth_server, "cloropleth", rv, global)
   callModule(mod_total_table_server, "left_table", rv)
   callModule(mod_country_modal_server, "country_modal", rv)
+  
+  # country_details$init_server(rv)
   
   observe({
     callModule(mod_daily_table_server, "right_table", rv)
