@@ -39,6 +39,8 @@ app_ui <- function(request) {
     
     worldwide_view <- function(){
       fluidPage(
+        fluidRow(h2("Worldwide", style = "padding-left: 45px;")),
+        br(),
         div(
           class = "map-container",
           div(class = "map", mod_cloropleth_ui("cloropleth"))
@@ -101,7 +103,7 @@ app_ui <- function(request) {
     }
     country_view <- function(){
       fluidPage(
-        mod_country_modal_ui("country_modal")
+        country_details$ui(id = "country_modal")
       )
     }
     

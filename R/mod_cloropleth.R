@@ -22,6 +22,7 @@ mod_cloropleth_server <- function(input, output, session, rv, global) {
 
   observeEvent(input$cloropleth_shape_click, {
     rv$selected_country <- input$cloropleth_shape_click$id
+    rv$testing_variable <- rv$selected_country
   })
 
   output$cloropleth <-
