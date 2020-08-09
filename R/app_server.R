@@ -12,19 +12,14 @@ app_server <- function(input, output, session) {
   observe({
     waiter::show_waiter(waiter::spin_folding_cube(), color = global$colours$dark, "Loading data ...")
     
-    # Raw Data
-    confirmed_ts <- data_handler$infected_data
-    death_ts <- data_handler$deaths_data
-    tests_ts <- data_handler$tests_data
-    country_codes_dt <- data_handler$country_codes
+    # Download actual data
+    data_handler$get_data()
     
-    # Processed Data
-    rv$daily_country <- get_daily_country(confirmed_ts, death_ts, tests_ts, country_codes_dt)
-    rv$total_country <- get_total_country(confirmed_ts, death_ts, tests_ts, country_codes_dt)
-    rv$map_data <- get_map_data(rv$total_country)
-    
-    # Last date
-    rv$last_date <- confirmed_ts$Date %>% max()
+    # Save data as reactive value
+    rv$daily_country <- data_handler$daily_country
+    rv$total_country <- data_handler$total_country
+    rv$map_data <- data_handler$map_data
+    rv$last_date <- data_handler$last_date
     
     waiter::hide_waiter()
   })
@@ -58,9 +53,9 @@ app_server <- function(input, output, session) {
   callModule(mod_daily_plot_server, 'dailyplot_tests', rv, country = NULL, global, variable = "total_tests")
   callModule(mod_cloropleth_server, "cloropleth", rv, global)
   callModule(mod_total_table_server, "left_table", rv)
-  callModule(mod_country_modal_server, "country_modal", rv)
+  # callModule(mod_country_modal_server, "country_modal", rv)
   
-  # country_details$init_server(rv)
+  country_details$init_server(rv)
   
   observe({
     callModule(mod_daily_table_server, "right_table", rv)

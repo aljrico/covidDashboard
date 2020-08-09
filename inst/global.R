@@ -1,3 +1,2 @@
-
-  data_handler <- DataHandler$new()
-  country_details <- CountryDetails$new()
+data_handler <- DataHandler$new()
+country_details <- CountryDetails$new()

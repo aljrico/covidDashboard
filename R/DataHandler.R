@@ -70,7 +70,7 @@ load_tests <- function() {
 #'
 #' @noRd
 #' @export
-load_country_codes <- function() {
+download_country_codes <- function() {
   country_codes_url <- ("https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv")
   country_codes_dt <-
     country_codes_url %>%
@@ -171,25 +171,30 @@ DataHandler <-
       daily_country = NULL,
       total_country = NULL,
       map_data = NULL,
-      initialize = function() {
+      remove_last_date = function(){
+        self$raw_data = self$raw_data[date != Sys.Date()]
+      },
+      get_last_date = function(){
+        self$raw_date$Date %>% max()
+      },
+      get_data = function(){
+        # Download basic raw data
         self$raw_data <- download_all_data()
+        self$country_codes <- download_country_codes()
+        
+        # Last date is normally uncomplete, so we remove it
         self$remove_last_date()
-        # self$world_data <- merge_recovered(recovered_ts, self$raw_data)
-        # self$last_date <- self$world_data$date %>% max()
-
-        # Processed Data
+        
+        # Record whatever last date is
+        self$last_date <- self$get_last_date()
+        
+        # Process Data
         self$infected_data <- handle_confirmed_data(self$raw_data)
         self$deaths_data <- handle_deaths_data(self$raw_data)
         self$tests_data <- handle_tests_data(self$raw_data)
-        self$country_codes <- load_country_codes()
-        #
-        # self$daily_country <- get_daily_country(self$world_data)
-        # self$total_country <- get_total_country(self$world_data)
-        # self$map_data <- get_map_data(self$total_country)
-      },
-      
-      remove_last_date = function(){
-        self$raw_data = self$raw_data[date != Sys.Date()]
+        self$daily_country <- get_daily_country(self$infected_data, self$deaths_data, self$tests_data, self$country_codes)
+        self$total_country <- get_total_country(self$infected_data, self$deaths_data, self$tests_data, self$country_codes)
+        self$map_data <- get_map_data(self$total_country)
       }
     )
   )
