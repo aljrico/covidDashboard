@@ -116,7 +116,10 @@ mod_country_modal_server <- function(input, output, session, rv){
     output$country_title <- shiny::renderUI({h2(country_data()$location[1])})
 }
 
-
+#' Country Details Object
+#'
+#' @noRd
+#' @export
 CountryDetails <- 
   R6::R6Class(
   "CountryDetails",

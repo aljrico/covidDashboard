@@ -2,6 +2,7 @@
 
 export("%>%")
 export(":=")
+export(CountryDetails)
 export(DataHandler)
 export(button_class)
 export(get_daily_country)
