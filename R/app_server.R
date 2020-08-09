@@ -28,8 +28,6 @@ app_server <- function(input, output, session) {
     # Last date
     rv$last_date <- confirmed_ts$Date %>% max()
     
-    print(data_handler$raw_data$date %>% max())
-    
     waiter::hide_waiter()
   })
 
