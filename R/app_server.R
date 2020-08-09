@@ -9,6 +9,7 @@ app_server <- function(input, output, session) {
   rv$selected_variable <- "infected"
   
   data_handler <- DataHandler$new()
+  country_details <- CountryDetails$new()
 
   # Load Data
   observe({
@@ -32,7 +33,6 @@ app_server <- function(input, output, session) {
   })
 
   observe({
-    print(input$metric_button)
     if(!is.null(input$metric_button)) rv$selected_variable <- input$metric_button
   })
   
