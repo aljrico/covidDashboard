@@ -32,7 +32,7 @@ app_ui <- function(request) {
     # )
     actionLink(
       inputId = "author_website",
-      label = "About the Author"
+      label = tags$a("About the Author", href = "https://aljrico.com", target="_blank")
     )
   }
   body <- function() {
