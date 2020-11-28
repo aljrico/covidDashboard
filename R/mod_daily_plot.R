@@ -20,10 +20,9 @@ mod_daily_plot_server <- function(input, output, session, rv, country = NULL, gl
   
   output$daily_plot <- 
     plotly::renderPlotly({
-      dat <- data.table::data.table(rv$daily_country)
-      data.table::setnames(dat, old = "location", new = "Country")
-      if (!is.null(country)) dat <- dat[Country == country]
-      plot_metric_daily(dat, variable)
+      pd <- PlotterDaily$new(variable)
+      pd$ingest_data(rv$daily_country)
+      pd$plot()
     })
   
 }

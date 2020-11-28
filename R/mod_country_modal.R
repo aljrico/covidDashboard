@@ -92,6 +92,11 @@ mod_country_modal_server <- function(input, output, session, rv) {
       tests_box
     )
   })
+  
+  casePlotter <- PlotterDaily$new(variable = "confirmed_cases")
+  deathsPlotter <- PlotterDaily$new(variable = "confirmed_deaths")
+  testsPlotter <- PlotterDaily$new(variable = "total_tests")
+  
   output$total_cases <- plotly::renderPlotly({
     plot_metric_evolution(country_data(), variable = "confirmed_cases")
   })
@@ -102,13 +107,16 @@ mod_country_modal_server <- function(input, output, session, rv) {
     plot_metric_evolution(country_data(), variable = "total_tests")
   })
   output$daily_cases <- plotly::renderPlotly({
-    plot_metric_daily(country_data(), variable = "confirmed_cases")
+    casePlotter$ingest_data(rv$daily_country)
+    casePlotter$plot()
   })
   output$daily_deaths <- plotly::renderPlotly({
-    plot_metric_daily(country_data(), variable = "confirmed_deaths")
+    deathsPlotter$ingest_data(rv$daily_country)
+    deathsPlotter$plot()
   })
   output$daily_tests <- plotly::renderPlotly({
-    plot_metric_daily(country_data(), variable = "total_tests")
+    testsPlotter$ingest_data(rv$daily_country)
+    testsPlotter$plot()
   })
   output$country_title <- shiny::renderUI({
     h2(country_data()$location[1], style = "padding-left: 45px;")
