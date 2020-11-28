@@ -3,6 +3,8 @@
   background-color: #fafafa;
   color: #1f2430;
   font-family: 'Ubuntu', sans-serif;
+  overflow: visible;
+  height: 70px;
 }
 /* logo when hovered */
 .skin-blue .main-header .logo:hover {
@@ -48,4 +50,5 @@
 .main-sidebar {
   font-family: "Ubuntu", sans-serif;
   color: "#1f2430";
+  padding-top: 70px;
 }
