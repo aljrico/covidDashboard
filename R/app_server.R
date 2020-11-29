@@ -53,9 +53,8 @@ app_server <- function(input, output, session) {
   callModule(mod_daily_plot_server, 'dailyplot_tests', rv, country = NULL, global, variable = "total_tests")
   callModule(mod_cloropleth_server, "cloropleth", rv, global)
   callModule(mod_total_table_server, "left_table", rv)
-  # callModule(mod_country_modal_server, "country_modal", rv)
   
-  country_details$init_server(rv)
+  country_details$server(rv)
   
   observe({
     callModule(mod_daily_table_server, "right_table", rv)
