@@ -107,15 +107,15 @@ mod_country_modal_server <- function(input, output, session, rv) {
     plot_metric_evolution(country_data(), variable = "total_tests")
   })
   output$daily_cases <- plotly::renderPlotly({
-    casePlotter$ingest_data(rv$daily_country)
+    casePlotter$ingest_data(country_data())
     casePlotter$plot()
   })
   output$daily_deaths <- plotly::renderPlotly({
-    deathsPlotter$ingest_data(rv$daily_country)
+    deathsPlotter$ingest_data(country_data())
     deathsPlotter$plot()
   })
   output$daily_tests <- plotly::renderPlotly({
-    testsPlotter$ingest_data(rv$daily_country)
+    testsPlotter$ingest_data(country_data())
     testsPlotter$plot()
   })
   output$country_title <- shiny::renderUI({
