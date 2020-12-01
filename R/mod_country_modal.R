@@ -13,7 +13,12 @@ CountryDetails <-
             shinydashboard::box(
               solidHeader = TRUE,
               width = 4,
-              shinyWidgets::switchInput(inputId = ns(glue::glue("switch_daily_{v}"))),
+              shinyWidgets::switchInput(
+                inputId = ns(glue::glue("switch_daily_{v}")),
+                onLabel = "Last 90 days",
+                offLabel = "Last Year",
+                width = "250%"
+                ),
               plotly::plotlyOutput(ns(glue::glue("daily_{v}")))
             )
           })
@@ -56,6 +61,8 @@ CountryDetails <-
       variables = c("confirmed_cases", "confirmed_deaths", "total_tests"),
       init_server = function(input, output, session, rv){
         ns <- session$ns
+        
+        private$switch_listener()
         
         country_data <- reactive({
           req(rv$selected_country)
@@ -108,6 +115,15 @@ CountryDetails <-
 
         output$country_title <- shiny::renderUI({
           h2(country_data()$location[1], style = "padding-left: 45px;")
+        })
+      },
+      switch_listener = function(){
+        shinyServer(function(input, output, session){
+          lapply(private$variables, function(v){
+            observeEvent(input[[ns(glue::glue("switch_daily_{v}"))]], {
+              print(v)
+            })
+        })
         })
       }
     )
