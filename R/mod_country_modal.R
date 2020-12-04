@@ -13,10 +13,9 @@ CountryDetails <-
             shinydashboard::box(
               solidHeader = TRUE,
               width = 4,
-              shinyWidgets::switchInput(
-                inputId = ns(glue::glue("switch_daily_{v}")),
-                onLabel = "Last 90 days",
-                offLabel = "Last Year",
+              shinyWidgets::radioGroupButtons(
+                inputId = ns(glue::glue("button_timeframe_daily_{v}")),
+                choices = c("Last 90 days", "Full Range"),
                 width = "250%"
                 ),
               plotly::plotlyOutput(ns(glue::glue("daily_{v}")))
@@ -41,7 +40,7 @@ CountryDetails <-
           fluidRow(
             column(
               12,
-              actionButton("back_button", " Back to worldwide view", icon = icon("globe-americas"))
+              actionButton("back_button", " Back to worldwide view", icon = icon("globe-americas"), class = "back-button")
             )
           ),
           br(),
@@ -120,7 +119,7 @@ CountryDetails <-
       switch_listener = function(){
         shinyServer(function(input, output, session){
           lapply(private$variables, function(v){
-            observeEvent(input[[ns(glue::glue("switch_daily_{v}"))]], {
+            observeEvent(input[[ns(glue::glue("button_timeframe_daily_{v}"))]], {
               print(v)
             })
         })
