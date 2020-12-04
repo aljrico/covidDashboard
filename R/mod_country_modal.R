@@ -40,7 +40,7 @@ CountryDetails <-
         ns <- NS(id)
         tagList(
           fluidRow(
-            column(2, uiOutput(ns("country_title"))), column(9), column(1, back_button())
+            column(11, uiOutput(ns("country_title"))), column(1, back_button())
           ),
           br(),
           uiOutput(ns("value_boxes")),
