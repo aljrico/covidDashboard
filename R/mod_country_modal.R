@@ -33,17 +33,15 @@ CountryDetails <-
           })
           do.call(tagList, ui_pieces)
         }
+        back_button <- function(){
+          actionButton("back_button", "  Back", icon = icon("globe-americas"), class = "back-button")
+        }
         
         ns <- NS(id)
         tagList(
-          fluidRow(uiOutput(ns("country_title"))),
           fluidRow(
-            column(
-              12,
-              actionButton("back_button", " Back to worldwide view", icon = icon("globe-americas"), class = "back-button")
-            )
+            column(2, uiOutput(ns("country_title"))), column(9), column(1, back_button())
           ),
-          br(),
           br(),
           uiOutput(ns("value_boxes")),
           fluidRow(

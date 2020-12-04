@@ -116,16 +116,15 @@ hr.side-hr {
 }
 
 
-.btn-default {
+.back-button {
     background-color: #1f2430;
     color: #ccc;
     border-color: #ccc;
     border-radius: 10px;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-top: 25px;
 } 
 
-.btn-default:hover {
+.back-button:hover {
   color: #fafafa;
   font-weight: 500;
   background-color: #1f2430;
