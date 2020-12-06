@@ -52,14 +52,16 @@ CountryDetails <-
           )
         )
       },
-      server = function(rv) callModule(private$init_server, "country_modal", rv)
+      server = function(rv) {
+        callModule(private$init_server, "country_modal", rv)
+      }
     ),
     private = list(
       variables = c("confirmed_cases", "confirmed_deaths", "total_tests"),
       init_server = function(input, output, session, rv){
         ns <- session$ns
         
-        private$switch_listener()
+        private$switch_listener(input, output, session)
         
         country_data <- reactive({
           req(rv$selected_country)
@@ -104,8 +106,9 @@ CountryDetails <-
         lapply(private$variables, function(v){
           output_name <- paste0("daily_", v)
           output[[output_name]] <- plotly::renderPlotly({
+            range <- input[[glue::glue("button_timeframe_daily_{v}")]]
             variablePlotter <- PlotterDaily$new(variable = v)
-            variablePlotter$ingest_data(country_data())
+            variablePlotter$ingest_data(country_data(), range)
             variablePlotter$plot()
           })
         })
@@ -114,13 +117,11 @@ CountryDetails <-
           h2(country_data()$location[1], style = "padding-left: 45px;")
         })
       },
-      switch_listener = function(){
-        shinyServer(function(input, output, session){
+      switch_listener = function(input, output, session){
           lapply(private$variables, function(v){
-            observeEvent(input[[ns(glue::glue("button_timeframe_daily_{v}"))]], {
+            observeEvent(input[[(glue::glue("button_timeframe_daily_{v}"))]], {
               print(v)
             })
-        })
         })
       }
     )

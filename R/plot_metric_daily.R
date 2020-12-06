@@ -8,21 +8,32 @@
       initialize = function(variable){
         private$variable = variable
       },
-      ingest_data = function(data){
+      ingest_data = function(data, range = "full range"){
         data <- data.table::copy(data)
         data.table::setDT(data)
         
         data.table::setnames(data, old = private$variable, new = "value", skip_absent = TRUE)
         
-        private$data <- 
+        summarised_data <- 
           data %>%
           dplyr::group_by(Date) %>%
           dplyr::summarise(result = sum(as.numeric(value), na.rm = TRUE)) %>%
           dplyr::mutate(Date = lubridate::ymd(Date)) %>%
           dplyr::ungroup() %>% 
           dplyr::mutate(change = (result - dplyr::lag(result))) %>% 
-          na.omit() %>% 
-          dplyr::filter(Date > max(Date) - 90)
+          na.omit()
+        
+        if(tolower(range) == "full range"){
+          min_date <- 
+            summarised_data %>% 
+            dplyr::filter(result > 0) %>% 
+            .$Date %>% 
+            min()
+        }else{
+          min_date <- lubridate::ymd(summarised_data$Date %>% max()) - 90
+        }
+        
+        private$data = summarised_data %>% dplyr::filter(Date > min_date)
       },
       plot = function(){
         private$data %>% 
