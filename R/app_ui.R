@@ -7,32 +7,30 @@
 app_ui <- function(request) {
   
   sidebar <- function() {
-    variable_button <- function(variable) {
-      if (variable == "infected") symbol <- "syringe"
-      if (variable == "deaths") symbol <- "skull"
-      if (variable == "tests") symbol <- "tablets"
-
-
-      tags$button(
-        id = glue::glue("{variable}_button"),
-        type = "button",
-        class = glue::glue("btn action-button btn-large btn-variable btn-{variable}"),
-        icon(symbol, class = "btn-symbol")
+    
+    timerange_button <- function(){
+      
+      shinyWidgets::radioGroupButtons(
+        label = "Time Range",
+        inputId = "radiobutton_timerange",
+        choices = c("Last 90 days", "Full Range"),
+        direction = "vertical",
+        size = "normal"
       )
     }
-
-    # div(
-    #   class = "center",
-    #   h3("Map Metric"),
-    #   fluidRow(
-    #     column(2, variable_button("infected")),
-    #     column(2, variable_button("deaths")),
-    #     column(2, variable_button("tests"))
-    #   )
-    # )
-    actionLink(
-      inputId = "author_website",
-      label = tags$a("Author's Website", href = "https://aljrico.com", target="_blank")
+    
+    tagList(
+      div(
+        class = "text-center",
+        style = "color: #1f2430;",
+          h3("Control Panel"),
+          timerange_button()
+      ),
+      hr(),
+      actionLink(
+        inputId = "author_website",
+        label = tags$a("Author's Website", href = "https://aljrico.com", target="_blank")
+      )
     )
   }
   body <- function() {

@@ -13,11 +13,6 @@ CountryDetails <-
             shinydashboard::box(
               solidHeader = TRUE,
               width = 4,
-              shinyWidgets::radioGroupButtons(
-                inputId = ns(glue::glue("button_timeframe_daily_{v}")),
-                choices = c("Last 90 days", "Full Range"),
-                width = "250%"
-                ),
               plotly::plotlyOutput(ns(glue::glue("daily_{v}")))
             )
           })
@@ -52,16 +47,14 @@ CountryDetails <-
           )
         )
       },
-      server = function(rv) {
-        callModule(private$init_server, "country_modal", rv)
+      server = function(rv, timerange) {
+        callModule(private$init_server, "country_modal", rv, timerange)
       }
     ),
     private = list(
       variables = c("confirmed_cases", "confirmed_deaths", "total_tests"),
-      init_server = function(input, output, session, rv){
+      init_server = function(input, output, session, rv, timerange){
         ns <- session$ns
-        
-        private$switch_listener(input, output, session)
         
         country_data <- reactive({
           req(rv$selected_country)
@@ -106,7 +99,7 @@ CountryDetails <-
         lapply(private$variables, function(v){
           output_name <- paste0("daily_", v)
           output[[output_name]] <- plotly::renderPlotly({
-            range <- input[[glue::glue("button_timeframe_daily_{v}")]]
+            range <- timerange()
             variablePlotter <- PlotterDaily$new(variable = v)
             variablePlotter$ingest_data(country_data(), range)
             variablePlotter$plot()
@@ -115,13 +108,6 @@ CountryDetails <-
 
         output$country_title <- shiny::renderUI({
           h2(country_data()$location[1], style = "padding-left: 45px;")
-        })
-      },
-      switch_listener = function(input, output, session){
-          lapply(private$variables, function(v){
-            observeEvent(input[[(glue::glue("button_timeframe_daily_{v}"))]], {
-              print(v)
-            })
         })
       }
     )
