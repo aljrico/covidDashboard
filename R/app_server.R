@@ -10,7 +10,7 @@ app_server <- function(input, output, session) {
 
   # Load Data
   observe({
-    waiter::show_waiter(waiter::spin_folding_cube(), color = global$colours$dark, "Loading data ...")
+    waiter::waiter_show(waiter::spin_folding_cube(), color = global$colours$dark, "Loading data ...")
     
     # Download actual data
     data_handler$get_data()
@@ -21,7 +21,7 @@ app_server <- function(input, output, session) {
     rv$map_data <- data_handler$map_data
     rv$last_date <- data_handler$last_date
     
-    waiter::hide_waiter()
+    waiter::waiter_hide()
   })
 
   observe({
@@ -54,7 +54,7 @@ app_server <- function(input, output, session) {
   callModule(mod_cloropleth_server, "cloropleth", rv, global)
   callModule(mod_total_table_server, "left_table", rv)
   
-  country_details$server(rv)
+  country_details$server(rv, timerange = reactive(input$radiobutton_timerange))
   
   observe({
     callModule(mod_daily_table_server, "right_table", rv)
